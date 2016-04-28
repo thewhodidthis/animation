@@ -1,0 +1,55 @@
+{
+  "name": "@thewhodidthis/animation",
+  "version": "0.0.1",
+  "description": "Helps setup raf based loops",
+  "keywords": [
+    "animation",
+    "canvas"
+  ],
+  "homepage": "https://github.com/thewhodidthis/animation#readme",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thewhodidthis/animation.git"
+  },
+  "bugs": {
+    "url": "https://github.com/thewhodidthis/animation/issues"
+  },
+  "directories": {
+    "example": "example"
+  },
+  "config": {
+    "jscsrc": ".jscsrc"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\"",
+    "clear": "npm run clear:dist && npm run clear:logs",
+    "clear:dist": "rm -rf dist/",
+    "clear:logs": "rm -f *.log",
+    "lint": "(jshint index.js & jscs index.js --reporter=inlinesingle) 2>&1 | tee lint-js.log",
+    "postlint": "find lint-js.log -size 0 -print0 | xargs -0 rm",
+    "start": "npm run watch",
+    "serve": "php -S localhost:8000",
+    "watch": "watchify index.js -s animation -o ./dist/animation.js",
+    "example": "npm run build && npm run build:demo",
+    "prebuild": "mkdir -p dist/",
+    "build": "browserify index.js -s animation -o ./dist/animation.js",
+    "build:min": "browserify index.js -s animation | uglifyjs -o ./dist/animation.min.js",
+    "build:demo": "ln -siv \"$(pwd)/dist/animation.js\" example/js/lib",
+    "postbuild": "npm run build:min",
+    "preversion": "npm run clear:logs"
+  },
+  "engines": {
+    "node": ">=4.2.4",
+    "npm": ">=3.5.3"
+  },
+  "devDependencies": {
+    "jscs": "latest",
+    "jshint": "latest",
+    "uglify-js": "latest",
+    "browserify": "latest",
+    "watchify": "latest"
+  },
+  "author": "sChzs BkgNns <sotirios.bakagiannis@gmail.com> (https://www.thewhodidthis.com)",
+  "license": "Unlicense"
+}
