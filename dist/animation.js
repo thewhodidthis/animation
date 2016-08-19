@@ -5,11 +5,11 @@ function Animation(fn) {
   var frameId;
   var _onTick = fn;
 
-  var _tick = function(fn) {
+  var _tick = function (fn) {
     frameId = window.requestAnimationFrame(fn);
   };
 
-  var _loop = function(now) {
+  var _loop = function (now) {
     _onTick(now);
 
     // Skip when turned off
@@ -18,7 +18,7 @@ function Animation(fn) {
     }
   };
 
-  var start = function() {
+  var start = function () {
 
     // Make sure these don't stack up
     if (!frameId) {
@@ -28,7 +28,7 @@ function Animation(fn) {
     return this;
   };
 
-  var stop = function() {
+  var stop = function () {
     if (frameId) {
 
       // Turn off, falsify frameId
