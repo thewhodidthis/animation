@@ -1,1 +1,0 @@
-/Users/thewhodidthis/Desktop/animation/dist/animation.js
