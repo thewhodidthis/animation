@@ -1,6 +1,6 @@
-'use strict';
-
 function Animation(fn) {
+  'use strict';
+
   var frameId;
   var _onTick = fn;
 
