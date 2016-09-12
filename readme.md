@@ -1,5 +1,5 @@
 ## Animation
-> Helps setup raf based loops.
+> Helps setup raf based loops
 
 ### Setup
 ```sh
@@ -7,9 +7,13 @@ npm install thewhodidthis/animation --save
 ```
 
 ### Usage
-See example for typical use case.
 ```sh
+# Symlink freshly built standalone module into example folder
+# Start a php server on port 8000
 npm run example
+
+# Open using default browser
+open http://localhost:8000
 ```
 
 ### Reading
