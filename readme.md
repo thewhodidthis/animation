@@ -3,7 +3,7 @@
 
 ### Setup
 ```sh
-npm install thewhodidthis/animation --save
+npm install thewhodidthis/animation
 ```
 
 ### Usage
