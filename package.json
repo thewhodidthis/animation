@@ -4,7 +4,6 @@
   "description": "Helps setup raf based loops",
   "keywords": [
     "animation",
-    "canvas",
     "rAF"
   ],
   "main": "index.js",
@@ -20,7 +19,8 @@
     "example": "example"
   },
   "config": {
-    "jscsrc": ".jscsrc"
+    "jscsrc": ".jscsrc",
+    "remote": "thewhodidthis@umfufu:www/example/animation/"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -34,6 +34,7 @@
     "preexample": "npm run build",
     "example": "npm run example:link && npm run example:serve",
     "example:link": "ln -siv \"$(pwd)/dist/animation.js\" example",
+    "example:push": "rsync -avruzLPC --exclude=.DS_Store ./example/ $npm_package_config_remote",
     "example:serve": "php -S localhost:8000 -t example/",
     "prebuild": "mkdir -p dist/",
     "build": "browserify index.js -s Animation -o ./dist/animation.js",
