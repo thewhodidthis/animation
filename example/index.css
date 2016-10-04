@@ -4,8 +4,40 @@ html {
 
 body,
 p,
+ul,
 figure {
   margin: 0;
+}
+
+ul {
+  padding: 0;
+  width: 720px;
+  height: 360px;
+  cursor: default;
+  list-style: none;
+  overflow: hidden;
+}
+
+li {
+  float: left;
+  width: 72px;
+  height: 72px;
+  display: block;
+  background: #ff0;
+  position: relative;
+  box-sizing: border-box;
+  border: 1px solid #fff;
+}
+
+li input {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  display: block;
+  position: absolute;
+  transform: scale(1.5, 1.5) translateZ(0);
 }
 
 figure {
@@ -25,11 +57,6 @@ figcaption p {
   padding-left: 0.5rem;
 }
 
-canvas {
-  display: block;
-  background: #000;
-}
-
 .is-iframe {
   overflow: hidden;
 }
@@ -37,14 +64,5 @@ canvas {
 .is-iframe figure {
   top: 0;
   margin: 0;
-}
-
-.is-iframe figcaption {
-  display: none;
-}
-
-.is-iframe canvas {
-  width: 100%;
-  max-width: 100%;
 }
 
