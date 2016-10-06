@@ -6,7 +6,7 @@ var list = document.getElementById('canvas');
 var items = document.getElementsByTagName('li');
 var master = items[0];
 
-var emojiCodes = '😁,😂,😃,😄,😅,😆,😉,😊,😋,😌,😏,😜';
+var emojiCodes = '😁,😂,😃,😄,😠,😆,😉,😊,😋,😌,😏,😜';
 var emojis = emojiCodes.split(',');
 var emojiTotal = emojis.length;
 
