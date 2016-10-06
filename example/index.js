@@ -11,11 +11,10 @@ var emojis = emojiCodes.split(',');
 var emojiTotal = emojis.length;
 
 var targetItem;
-var itemTotal = list.offsetWidth / items[0].offsetWidth * list.offsetHeight / items[0].offsetHeight;
+var maxItems = list.offsetWidth / items[0].offsetWidth * list.offsetHeight / items[0].offsetHeight;
 
 var frameCount = 0;
 var framesPast = 0;
-var seeds = [];
 
 // Show in order
 var init = new Animation(function _initFrame(t) {
@@ -28,11 +27,9 @@ var init = new Animation(function _initFrame(t) {
   var emoji = emojis[seed];
 
   list.appendChild(clone);
-  seeds.push(seed);
-
   item.setAttribute('data-content', emoji);
 
-  if (currentTotal >= itemTotal) {
+  if (currentTotal >= maxItems) {
     init.stop();
   }
 }).start();
