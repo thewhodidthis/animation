@@ -2,33 +2,61 @@
 
 var html = document.documentElement;
 
-var host = document.getElementById('figure');
 var list = document.getElementById('canvas');
 var items = document.getElementsByTagName('li');
-var buttons = document.getElementsByTagName('input');
+var master = items[0];
 
-var height = list.offsetHeight;
-var width = list.offsetWidth;
-var step = Math.max(items[0].offsetWidth, items[0].offsetHeight);
+var emojiCodes = '😁,😂,😃,😄,😅,😆,😉,😊,😋,😌,😏,😜';
+var emojis = emojiCodes.split(',');
+var emojiTotal = emojis.length;
 
-var target;
-var frameId;
-var isTicking = false;
+var targetItem;
+var itemTotal = list.offsetWidth / items[0].offsetWidth * list.offsetHeight / items[0].offsetHeight;
 
-var animation = new Animation(function _onEachFrame(t) {
-  if (!isTicking) {
-    for (var i = 0, total = buttons.length; i < total; i += 1) {
-      var current = buttons[i];
+var frameCount = 0;
+var framesPast = 0;
+var seeds = [];
 
-      if (target === current || target === current.parentNode) {
-        current.checked = true;
-      } else {
-        current.checked = false;
-      }
-    }
+// Show in order
+var init = new Animation(function _initFrame(t) {
+  var currentTotal = items.length;
+
+  var item = items[currentTotal - 1];
+  var clone = master.cloneNode(true);
+
+  var seed = Math.floor(Math.random() * emojiTotal);
+  var emoji = emojis[seed];
+
+  list.appendChild(clone);
+  seeds.push(seed);
+
+  item.setAttribute('data-content', emoji);
+
+  if (currentTotal >= itemTotal) {
+    init.stop();
+  }
+}).start();
+
+var loop = new Animation(function _loopFrame(t) {
+  if (framesPast % 5 === 0) {
+    var emoji = emojis[frameCount];
+
+    targetItem.setAttribute('data-content', emoji);
+    frameCount += 1;
   }
 
-  isTicking = true;
+  if (frameCount >= emojiTotal) {
+    loop.stop();
+    frameCount = 0;
+  }
+
+  framesPast += 1;
+});
+
+// Track mouse position
+var track = new Animation(function _trackFrame(t) {
+  loop.start();
+  track.stop();
 });
 
 html.className = 'html';
@@ -37,16 +65,9 @@ if (window !== window.top) {
   html.className += ' is-iframe';
 }
 
-for (var i = 0, total = (width * height / step) - 1; i < total; i += 1) {
-  list.appendChild(items[0].cloneNode(true));
-}
-
 window.addEventListener('mousemove', function _onMouseMove(e) {
-  if (!frameId) {
-    frameId = animation.start();
-  }
+  track.start();
 
-  target = e.target;
-  isTicking = false;
+  targetItem = e.target;
 });
 

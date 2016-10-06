@@ -13,7 +13,6 @@ ul {
   padding: 0;
   width: 720px;
   height: 360px;
-  cursor: default;
   list-style: none;
   overflow: hidden;
 }
@@ -23,21 +22,21 @@ li {
   width: 72px;
   height: 72px;
   display: block;
-  background: #ff0;
   position: relative;
   box-sizing: border-box;
   border: 1px solid #fff;
 }
 
-li input {
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-  display: block;
+li::before {
+  top: 50%;
+  left: 50%;
+  cursor: pointer;
+  font-size: 3rem;
+  content: "\1F621";
   position: absolute;
-  transform: scale(1.5, 1.5) translateZ(0);
+  display: inline-block;
+  content: attr(data-content);
+  transform: translate(-50%, -50%) rotateZ(0);
 }
 
 figure {
@@ -54,7 +53,7 @@ figcaption {
 }
 
 figcaption p {
-  padding-left: 0.5rem;
+  margin-left: 108px;
 }
 
 .is-iframe {
