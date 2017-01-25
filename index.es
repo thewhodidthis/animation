@@ -1,15 +1,11 @@
-'use strict';
+const Animation = (callback) => {
+  let frameId;
 
-var _this = undefined;
-
-var Animation = function Animation(callback) {
-  var frameId = void 0;
-
-  var tick = function tick(fn) {
+  const tick = (fn) => {
     frameId = window.requestAnimationFrame(fn);
   };
 
-  var loop = function loop(now) {
+  const loop = (now) => {
     callback(now);
 
     // Skip when turned off
@@ -18,28 +14,28 @@ var Animation = function Animation(callback) {
     }
   };
 
-  var start = function start() {
+  const start = () => {
     // Make sure these don't stack up
     if (!frameId) {
       tick(loop);
     }
 
-    return _this;
+    return this;
   };
 
-  var stop = function stop() {
+  const stop = () => {
     if (frameId) {
       // Turn off, falsify frameId
       frameId = window.cancelAnimationFrame(frameId);
     }
 
-    return _this;
+    return this;
   };
 
   return {
-    start: start,
-    stop: stop
+    start,
+    stop
   };
 };
 
-module.exports = Animation;
+export default Animation;

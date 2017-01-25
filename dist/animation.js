@@ -1,50 +1,49 @@
-(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Animation = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-function Animation(fn) {
+var Animation = (function () {
   'use strict';
 
-  var frameId;
-  var _onTick = fn;
+  var _this = undefined;
 
-  var _tick = function (fn) {
-    frameId = window.requestAnimationFrame(fn);
+  var Animation = function Animation(callback) {
+    var frameId = void 0;
+
+    var tick = function tick(fn) {
+      frameId = window.requestAnimationFrame(fn);
+    };
+
+    var loop = function loop(now) {
+      callback(now);
+
+      // Skip when turned off
+      if (frameId) {
+        tick(loop);
+      }
+    };
+
+    var start = function start() {
+      // Make sure these don't stack up
+      if (!frameId) {
+        tick(loop);
+      }
+
+      return _this;
+    };
+
+    var stop = function stop() {
+      if (frameId) {
+        // Turn off, falsify frameId
+        frameId = window.cancelAnimationFrame(frameId);
+      }
+
+      return _this;
+    };
+
+    return {
+      start: start,
+      stop: stop
+    };
   };
 
-  var _loop = function (now) {
-    _onTick(now);
+  return Animation;
 
-    // Skip when turned off
-    if (frameId) {
-      _tick(_loop);
-    }
-  };
-
-  var start = function () {
-
-    // Make sure these don't stack up
-    if (!frameId) {
-      _tick(_loop);
-    }
-
-    return this;
-  };
-
-  var stop = function () {
-    if (frameId) {
-
-      // Turn off, falsify frameId
-      frameId = window.cancelAnimationFrame(frameId);
-    }
-
-    return this;
-  };
-
-  return {
-    start: start,
-    stop: stop
-  };
-}
-
-module.exports = Animation;
-
-},{}]},{},[1])(1)
-});
+}());
+//# sourceMappingURL=animation.js.map
