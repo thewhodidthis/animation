@@ -1,8 +1,8 @@
 'use strict';
 
-var _this = undefined;
+function Animation(callback) {
+  var _this = this;
 
-var Animation = function Animation(callback) {
   var frameId = void 0;
 
   var tick = function tick(fn) {
@@ -40,6 +40,6 @@ var Animation = function Animation(callback) {
     start: start,
     stop: stop
   };
-};
+}
 
 module.exports = Animation;

@@ -1,4 +1,4 @@
-const Animation = (callback) => {
+function Animation(callback) {
   let frameId;
 
   const tick = (fn) => {
@@ -36,6 +36,6 @@ const Animation = (callback) => {
     start,
     stop
   };
-};
+}
 
 export default Animation;
