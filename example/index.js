@@ -32,7 +32,7 @@ var init = new Animation(function _initFrame(t) {
   if (currentTotal >= maxItems) {
     init.stop();
   }
-}).start();
+})
 
 var loop = new Animation(function _loopFrame(t) {
   if (framesPast % 5 === 0) {
@@ -62,9 +62,13 @@ if (window !== window.top) {
   html.className += ' is-iframe';
 }
 
-window.addEventListener('mousemove', function _onMouseMove(e) {
-  track.start();
+window.addEventListener('load', function _onLoad() {
+  init.start();
+});
 
+window.addEventListener('mousemove', function _onMouseMove(e) {
   targetItem = e.target;
+
+  track.start();
 });
 
