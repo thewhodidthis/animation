@@ -3,7 +3,7 @@
 function Animation(callback) {
   var _this = this;
 
-  var frameId = void 0;
+  var frameId = null;
 
   var tick = function tick(fn) {
     frameId = window.requestAnimationFrame(fn);

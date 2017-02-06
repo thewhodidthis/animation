@@ -1,5 +1,5 @@
 function Animation(callback) {
-  let frameId;
+  let frameId = null;
 
   const tick = (fn) => {
     frameId = window.requestAnimationFrame(fn);
