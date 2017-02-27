@@ -17,7 +17,7 @@ var frameCount = 0;
 var framesPast = 0;
 
 // Show in order
-var init = new Animation(function _initFrame(t) {
+var init = Animation(function _initFrame(t) {
   var currentTotal = items.length;
 
   var item = items[currentTotal - 1];
@@ -34,7 +34,7 @@ var init = new Animation(function _initFrame(t) {
   }
 })
 
-var loop = new Animation(function _loopFrame(t) {
+var loop = Animation(function _loopFrame(t) {
   if (framesPast % 5 === 0) {
     var emoji = emojis[frameCount];
 
@@ -51,7 +51,7 @@ var loop = new Animation(function _loopFrame(t) {
 });
 
 // Track mouse position
-var track = new Animation(function _trackFrame(t) {
+var track = Animation(function _trackFrame(t) {
   loop.start();
   track.stop();
 });
