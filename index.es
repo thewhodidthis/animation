@@ -1,4 +1,4 @@
-function Animation(callback) {
+const Animation = (callback) => {
   let frameId = null;
 
   const tick = (fn) => {
@@ -19,8 +19,6 @@ function Animation(callback) {
     if (!frameId) {
       tick(loop);
     }
-
-    return this;
   };
 
   const stop = () => {
@@ -28,14 +26,12 @@ function Animation(callback) {
       // Turn off, falsify frameId
       frameId = window.cancelAnimationFrame(frameId);
     }
-
-    return this;
   };
 
   return {
     start,
-    stop
+    stop,
   };
-}
+};
 
 export default Animation;
