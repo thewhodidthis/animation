@@ -1,8 +1,6 @@
 'use strict';
 
-function Animation(callback) {
-  var _this = this;
-
+var Animation = function Animation(callback) {
   var frameId = null;
 
   var tick = function tick(fn) {
@@ -23,8 +21,6 @@ function Animation(callback) {
     if (!frameId) {
       tick(loop);
     }
-
-    return _this;
   };
 
   var stop = function stop() {
@@ -32,14 +28,12 @@ function Animation(callback) {
       // Turn off, falsify frameId
       frameId = window.cancelAnimationFrame(frameId);
     }
-
-    return _this;
   };
 
   return {
     start: start,
     stop: stop
   };
-}
+};
 
 module.exports = Animation;
