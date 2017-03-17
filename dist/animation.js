@@ -6,7 +6,7 @@ var Animation = (function () {
 
   var Animation = function Animation(callback) {
     if (callback === undefined || typeof callback !== 'function') {
-      throw Error('Missing valid callback');
+      throw TypeError('Missing valid callback');
     }
 
     // Is running flag
