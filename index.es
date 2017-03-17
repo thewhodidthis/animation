@@ -1,37 +1,56 @@
+// # Animation
+// rAF loop toggle
+
 const Animation = (callback) => {
+  if (callback === undefined || typeof callback !== 'function') {
+    throw Error('Missing valid callback');
+  }
+
+  // Is running flag
   let frameId = null;
 
+  // Frame
   const tick = (fn) => {
+    // Mark frame
     frameId = window.requestAnimationFrame(fn);
   };
 
+  // On each frame
   const loop = (now) => {
     callback(now);
 
-    // Skip when turned off
+    // Pause if idle
     if (frameId) {
       tick(loop);
     }
   };
 
+  // Turn off
+  const stop = () => {
+    // Make sure it's running
+    if (frameId) {
+      // Falsify frame
+      frameId = window.cancelAnimationFrame(frameId);
+    }
+  };
+
+  // Kick off
   const start = () => {
     // Make sure these don't stack up
     if (!frameId) {
       tick(loop);
     }
-  };
 
-  const stop = () => {
-    if (frameId) {
-      // Turn off, falsify frameId
-      frameId = window.cancelAnimationFrame(frameId);
-    }
+    return frameId;
   };
 
   return {
+    play: start,
+    pause: stop,
     start,
     stop,
   };
 };
 
 export default Animation;
+
