@@ -2,7 +2,7 @@
 
 var html = document.documentElement;
 
-var list = document.getElementById('canvas');
+var list = document.getElementById('list');
 var items = document.getElementsByTagName('li');
 var master = items[0];
 
@@ -10,9 +10,9 @@ var emojiCodes = '😁,😂,😃,😄,😠,😆,😉,😊,😋,😌,😏,😜';
 var emojis = emojiCodes.split(',');
 var emojiTotal = emojis.length;
 
-var targetItem;
-var maxItems = list.offsetWidth / items[0].offsetWidth * list.offsetHeight / items[0].offsetHeight;
+var cellsTotal = list.offsetWidth / master.offsetWidth * list.offsetHeight / master.offsetHeight;
 
+var targetItem;
 var frameCount = 0;
 var framesPast = 0;
 
@@ -21,18 +21,18 @@ var init = Animation(function _initFrame(t) {
   var currentTotal = items.length;
 
   var item = items[currentTotal - 1];
-  var clone = master.cloneNode(true);
-
   var seed = Math.floor(Math.random() * emojiTotal);
+
+  var clone = master.cloneNode(true);
   var emoji = emojis[seed];
 
   list.appendChild(clone);
   item.setAttribute('data-content', emoji);
 
-  if (currentTotal >= maxItems) {
+  if (currentTotal >= cellsTotal) {
     init.stop();
   }
-})
+});
 
 var loop = Animation(function _loopFrame(t) {
   if (framesPast % 5 === 0) {
@@ -56,19 +56,20 @@ var track = Animation(function _trackFrame(t) {
   track.stop();
 });
 
-html.className = 'html';
-
 if (window !== window.top) {
-  html.className += ' is-iframe';
+  html.className = 'is-iframe';
 }
+
+window.addEventListener('mousemove', function _onMouseMove(e) {
+  if (!e.target.getAttribute('data-content')) {
+    return;
+  }
+
+  targetItem = e.target;
+  track.start();
+});
 
 window.addEventListener('load', function _onLoad() {
   init.start();
-});
-
-window.addEventListener('mousemove', function _onMouseMove(e) {
-  targetItem = e.target;
-
-  track.start();
 });
 

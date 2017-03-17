@@ -1,3 +1,8 @@
+noscript {
+  margin: 6px;
+  font: italic 12px/28px arial, sans-serif;
+}
+
 html {
   overflow: scroll;
 }
@@ -9,15 +14,30 @@ figure {
   margin: 0;
 }
 
-noscript {
-  margin: 6px;
-  font: italic 12px/28px arial, sans-serif;
+figure {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 720px;
+  height: 360px;
+  position: absolute;
+}
+
+figcaption {
+  font-size: 90%;
+  margin: 0.5rem 0;
+}
+
+figcaption p {
+  margin-left: 108px;
 }
 
 ul {
   padding: 0;
-  width: 720px;
-  height: 360px;
+  width: 100%;
+  height: 100%;
   list-style: none;
   overflow: hidden;
 }
@@ -44,23 +64,6 @@ li::before {
   transform: translate(-50%, -50%) rotateZ(0);
 }
 
-figure {
-  top: 50%;
-  width: 100%;
-  height: 360px;
-  margin-top: -180px;
-  position: absolute;
-}
-
-figcaption {
-  font-size: 90%;
-  margin-top: 0.5rem;
-}
-
-figcaption p {
-  margin-left: 108px;
-}
-
 .is-iframe {
   overflow: hidden;
 }
@@ -68,5 +71,9 @@ figcaption p {
 .is-iframe figure {
   top: 0;
   margin: 0;
+}
+
+.is-iframe figcaption {
+  display: none;
 }
 
