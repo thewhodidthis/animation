@@ -24,7 +24,7 @@ test('will avoid stacking', (t) => {
   t.equals(animation.start(), id, 'frame id hasn\'t changed');
   t.equals(animation.start(), id, 'frame id hasn\'t changed');
 
-  t.notOk(animation.stop());
+  t.notOk(animation.stop(), 'stop');
   t.end();
 });
 
