@@ -14,8 +14,15 @@ test('will throw sans callback', (t) => {
   t.end();
 });
 
+test('will fake new', (t) => {
+  const animation = new Animation(Function);
+
+  t.ok(animation);
+  t.end();
+});
+
 test('will avoid stacking', (t) => {
-  const animation = Animation(console.log);
+  const animation = Animation(Function);
   const id = animation.start();
 
   t.doesNotThrow(animation.start, id);
