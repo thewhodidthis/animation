@@ -9,49 +9,39 @@ var Animation = (function () {
       throw TypeError('Missing valid callback');
     }
 
-    // Is running flag
-    var frameId = null;
+    // Track progress
+    var frameId = void 0;
 
-    // Frame
+    // Next
     var tick = function tick(fn) {
-      // Mark frame
-      frameId = window.requestAnimationFrame(fn);
+      return window.requestAnimationFrame(fn);
     };
 
     // On each frame
-    var loop = function loop(now) {
-      callback(now);
+    var loop = function loop() {
+      callback(frameId);
 
-      // Pause if idle
+      // Skip if idle
       if (frameId) {
-        tick(loop);
+        frameId = tick(loop);
       }
     };
 
-    // Turn off
+    // Turn off if running
     var stop = function stop() {
-      // Make sure it's running
-      if (frameId) {
-        // Falsify frame
-        frameId = window.cancelAnimationFrame(frameId);
-      }
+      frameId = frameId && window.cancelAnimationFrame(frameId);
     };
 
-    // Kick off
-    var start = function start() {
-      // Make sure these don't stack up
-      if (!frameId) {
-        tick(loop);
-      }
-
-      return frameId;
+    // Make sure these don't stack up
+    var play = function play() {
+      frameId = frameId || tick(loop);
     };
 
     return {
-      play: start,
-      pause: stop,
-      start: start,
-      stop: stop
+      play: play,
+      stop: stop,
+      start: play,
+      pause: stop
     };
   };
 

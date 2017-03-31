@@ -6,49 +6,37 @@ const Animation = (callback) => {
     throw TypeError('Missing valid callback');
   }
 
-  // Is running flag
-  let frameId = null;
+  // Track progress
+  let frameId;
 
-  // Frame
-  const tick = (fn) => {
-    // Mark frame
-    frameId = window.requestAnimationFrame(fn);
-  };
+  // Next
+  const tick = fn => window.requestAnimationFrame(fn);
 
   // On each frame
-  const loop = (now) => {
-    callback(now);
+  const loop = () => {
+    callback(frameId);
 
-    // Pause if idle
+    // Skip if idle
     if (frameId) {
-      tick(loop);
+      frameId = tick(loop);
     }
   };
 
-  // Turn off
+  // Turn off if running
   const stop = () => {
-    // Make sure it's running
-    if (frameId) {
-      // Falsify frame
-      frameId = window.cancelAnimationFrame(frameId);
-    }
+    frameId = frameId && window.cancelAnimationFrame(frameId);
   };
 
-  // Kick off
-  const start = () => {
-    // Make sure these don't stack up
-    if (!frameId) {
-      tick(loop);
-    }
-
-    return frameId;
+  // Make sure these don't stack up
+  const play = () => {
+    frameId = frameId || tick(loop);
   };
 
   return {
-    play: start,
-    pause: stop,
-    start,
+    play,
     stop,
+    start: play,
+    pause: stop,
   };
 };
 
