@@ -1,42 +1,40 @@
 'use strict';
 
-var html = document.documentElement;
+const html = document.documentElement;
+const list = document.getElementById('list');
+const items = document.getElementsByTagName('li');
+const master = items[0];
 
-var list = document.getElementById('list');
-var items = document.getElementsByTagName('li');
-var master = items[0];
+const emojiCodes = '😁,😂,😃,😄,😠,😆,😉,😊,😋,😌,😏,😜';
+const emojis = emojiCodes.split(',');
+const emojiTotal = emojis.length;
 
-var emojiCodes = '😁,😂,😃,😄,😠,😆,😉,😊,😋,😌,😏,😜';
-var emojis = emojiCodes.split(',');
-var emojiTotal = emojis.length;
+const cellsTotal = list.offsetWidth / master.offsetWidth * list.offsetHeight / master.offsetHeight;
 
-var cellsTotal = list.offsetWidth / master.offsetWidth * list.offsetHeight / master.offsetHeight;
-
-var targetItem;
-var frameCount = 0;
-var framesPast = 0;
+let targetItem;
+let frameCount = 0;
 
 // Show in order
-var init = Animation(function _initFrame(t) {
-  var currentTotal = items.length;
+const show = Animation((t) => {
+  const currentTotal = items.length;
 
-  var item = items[currentTotal - 1];
-  var seed = Math.floor(Math.random() * emojiTotal);
+  const item = items[currentTotal - 1];
+  const seed = Math.floor(Math.random() * emojiTotal);
 
-  var clone = master.cloneNode(true);
-  var emoji = emojis[seed];
+  const clone = master.cloneNode(true);
+  const emoji = emojis[seed];
 
   list.appendChild(clone);
   item.setAttribute('data-content', emoji);
 
   if (currentTotal >= cellsTotal) {
-    init.stop();
+    show.stop();
   }
 });
 
-var loop = Animation(function _loopFrame(t) {
-  if (framesPast % 5 === 0) {
-    var emoji = emojis[frameCount];
+const loop = Animation((t) => {
+  if (t % 5 === 0) {
+    const emoji = emojis[frameCount];
 
     targetItem.setAttribute('data-content', emoji);
     frameCount += 1;
@@ -46,14 +44,12 @@ var loop = Animation(function _loopFrame(t) {
     loop.stop();
     frameCount = 0;
   }
-
-  framesPast += 1;
 });
 
 // Track mouse position
-var track = Animation(function _trackFrame(t) {
-  loop.start();
-  track.stop();
+const trak = Animation(() => {
+  loop.play();
+  trak.stop();
 });
 
 if (window !== window.top) {
@@ -66,10 +62,10 @@ window.addEventListener('mousemove', function _onMouseMove(e) {
   }
 
   targetItem = e.target;
-  track.start();
+  trak.start();
 });
 
 window.addEventListener('load', function _onLoad() {
-  init.start();
+  show.start();
 });
 
