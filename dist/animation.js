@@ -37,12 +37,7 @@ var Animation = (function () {
       frameId = frameId || tick(loop);
     };
 
-    return {
-      play: play,
-      stop: stop,
-      start: play,
-      pause: stop
-    };
+    return { play: play, stop: stop, start: play, pause: stop };
   };
 
   return Animation;

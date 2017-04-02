@@ -32,12 +32,7 @@ const Animation = (callback) => {
     frameId = frameId || tick(loop);
   };
 
-  return {
-    play,
-    stop,
-    start: play,
-    pause: stop,
-  };
+  return { play, stop, start: play, pause: stop };
 };
 
 export default Animation;
