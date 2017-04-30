@@ -3,7 +3,7 @@
 
 const Animation = (callback) => {
   if (callback === undefined || typeof callback !== 'function') {
-    throw TypeError('Missing valid callback');
+    throw TypeError('Missing callback');
   }
 
   // Track progress
