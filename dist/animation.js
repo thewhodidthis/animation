@@ -1,46 +1,49 @@
 var Animation = (function () {
-  'use strict';
+'use strict';
 
-  // # Animation
-  // rAF loop toggle
+// # Animation
+// rAF loop toggle
 
-  var Animation = function Animation(callback) {
-    if (callback === undefined || typeof callback !== 'function') {
-      throw TypeError('Missing callback');
-    }
+var createLoop = function createLoop(callback) {
+  if (callback === undefined || typeof callback !== 'function') {
+    throw TypeError('Missing callback');
+  }
 
-    // Track progress
-    var frameId = void 0;
+  // Track progress
+  var id = void 0;
 
-    // Next
-    var tick = function tick(fn) {
-      return window.requestAnimationFrame(fn);
-    };
-
-    // On each frame
-    var loop = function loop() {
-      callback(frameId);
-
-      // Skip if idle
-      if (frameId) {
-        frameId = tick(loop);
-      }
-    };
-
-    // Turn off if running
-    var stop = function stop() {
-      frameId = frameId && window.cancelAnimationFrame(frameId);
-    };
-
-    // Make sure these don't stack up
-    var play = function play() {
-      frameId = frameId || tick(loop);
-    };
-
-    return { play: play, stop: stop, start: play, pause: stop };
+  // Next
+  var tick = function tick(fn) {
+    return window.requestAnimationFrame(fn);
   };
 
-  return Animation;
+  // On each frame
+  var loop = function loop(elapsed) {
+    callback(id, elapsed);
+
+    // Skip if idle
+    if (id) {
+      id = tick(loop);
+    }
+  };
+
+  // Turn off if running
+  var stop = function stop() {
+    id = id && window.cancelAnimationFrame(id);
+
+    return id;
+  };
+
+  // Make sure these don't stack up
+  var play = function play() {
+    id = id || tick(loop);
+
+    return id;
+  };
+
+  return { play: play, stop: stop, start: play, pause: stop };
+};
+
+return createLoop;
 
 }());
-//# sourceMappingURL=animation.js.map
