@@ -24,20 +24,14 @@
   },
   "scripts": {
     "test": "browserify test/*.js | testling -x open",
-    "clear": "npm run clear:dist && npm run clear:logs",
-    "clear:dist": "rm -rf dist/",
-    "clear:logs": "rm -f *.log",
-    "lint": "eslint index.es; exit 0",
-    "lint:test": "eslint test/index.js; exit 0",
-    "start": "npm run build && npm run build:min",
+    "lint": "eslint index.es",
+    "lint:test": "eslint test/index.js",
+    "start": "rollup -c && uglifyjs dist/animation.js -cm > dist/animation.min.js",
     "preexample": "npm start",
     "example": "npm run example:link && npm run example:serve",
     "example:link": "ln -siv \"$(pwd)/dist/animation.min.js\" example/animation.js",
-    "example:push": "rsync -avruzLPC --exclude=.DS_Store ./example/ $npm_package_config_remote",
     "example:serve": "php -S localhost:8000 -t example/",
-    "build": "rollup -c",
-    "build:min": "uglifyjs dist/animation.js -cm > dist/animation.min.js",
-    "preversion": "npm start"
+    "example:push": "rsync -avruzLPC --exclude=.DS_Store ./example/ $npm_package_config_remote"
   },
   "engines": {
     "node": ">=4.2.4",
@@ -49,7 +43,7 @@
     "babel-plugin-external-helpers": "latest",
     "babel-preset-es2015": "latest",
     "browserify": "latest",
-    "eslint": "latest",
+    "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "latest",
     "eslint-plugin-import": "latest",
     "rollup": "latest",
