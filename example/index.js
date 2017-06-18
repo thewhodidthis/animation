@@ -1,71 +1,55 @@
 'use strict';
 
-const html = document.documentElement;
 const list = document.getElementById('list');
 const items = document.getElementsByTagName('li');
 const master = items[0];
 
 const emojiCodes = '😁,😂,😃,😄,😠,😆,😉,😊,😋,😌,😏,😜';
-const emojis = emojiCodes.split(',');
-const emojiTotal = emojis.length;
-
+const emoji = emojiCodes.split(',');
+const emojiTotal = emoji.length;
 const cellsTotal = list.offsetWidth / master.offsetWidth * list.offsetHeight / master.offsetHeight;
 
-let targetItem;
-let frameCount = 0;
-
 // Show in order
-const show = Animation((t) => {
+const setup = Animation((t) => {
   const currentTotal = items.length;
 
   const item = items[currentTotal - 1];
   const seed = Math.floor(Math.random() * emojiTotal);
 
-  const clone = master.cloneNode(true);
-  const emoji = emojis[seed];
-
-  list.appendChild(clone);
-  item.setAttribute('data-content', emoji);
+  item.setAttribute('data-content', emoji[seed]);
+  list.appendChild(master.cloneNode(true));
 
   if (currentTotal >= cellsTotal) {
-    show.stop();
+    setup.stop();
   }
 });
 
-const loop = Animation((t) => {
-  if (t % 5 === 0) {
-    const emoji = emojis[frameCount];
+let target;
 
-    targetItem.setAttribute('data-content', emoji);
-    frameCount += 1;
-  }
-
-  if (frameCount >= emojiTotal) {
-    loop.stop();
-    frameCount = 0;
+const hoops = Animation((frame) => {
+  if (frame % 5 === 0) {
+    target.setAttribute('data-content', emoji[frame % emojiTotal]);
   }
 });
 
 // Track mouse position
-const trak = Animation(() => {
-  loop.play();
-  trak.stop();
+const track = Animation(() => {
+  hoops.play();
+  track.stop();
 });
 
 if (window !== window.top) {
-  html.className = 'is-iframe';
+  document.documentElement.classList.add('is-iframe');
 }
 
+window.addEventListener('load', setup.start);
 window.addEventListener('mousemove', function _onMouseMove(e) {
-  if (!e.target.getAttribute('data-content')) {
-    return;
+  if (!e.target.getAttribute('data-content') || target !== e.target) {
+    hoops.stop();
+  } else {
+    track.play();
   }
 
-  targetItem = e.target;
-  trak.start();
-});
-
-window.addEventListener('load', function _onLoad() {
-  show.start();
+  target = e.target;
 });
 
