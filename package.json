@@ -25,7 +25,6 @@
   "scripts": {
     "test": "browserify test/*.js | testling -x open",
     "lint": "eslint index.es",
-    "lint:test": "eslint test/index.js",
     "start": "rollup -c && uglifyjs dist/animation.js -cm > dist/animation.min.js",
     "preexample": "npm start",
     "example": "npm run example:link && npm run example:serve",
