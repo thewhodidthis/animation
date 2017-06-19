@@ -24,8 +24,8 @@
   },
   "scripts": {
     "test": "browserify test/*.js | testling -x open",
-    "lint": "eslint index.es",
-    "start": "rollup -c && uglifyjs dist/animation.js -cm > dist/animation.min.js",
+    "lint": "eslint index.es test/*.js",
+    "start": "rollup -c && uglifyjs dist/animation.js -cmo dist/animation.min.js",
     "preexample": "npm start",
     "example": "npm run example:link && npm run example:serve",
     "example:link": "ln -siv \"$(pwd)/dist/animation.min.js\" example/animation.js",
