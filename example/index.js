@@ -1,5 +1,3 @@
-'use strict';
-
 const list = document.getElementById('list');
 const items = document.getElementsByTagName('li');
 const master = items[0];
@@ -7,10 +5,10 @@ const master = items[0];
 const emojiCodes = '😁,😂,😃,😄,😠,😆,😉,😊,😋,😌,😏,😜';
 const emoji = emojiCodes.split(',');
 const emojiTotal = emoji.length;
-const cellsTotal = list.offsetWidth / master.offsetWidth * list.offsetHeight / master.offsetHeight;
+const cellsTotal = 50;
 
 // Show in order
-const setup = Animation((t) => {
+const setup = Animation(() => {
   const currentTotal = items.length;
 
   const item = items[currentTotal - 1];
@@ -42,8 +40,7 @@ if (window !== window.top) {
   document.documentElement.classList.add('is-iframe');
 }
 
-window.addEventListener('load', setup.start);
-window.addEventListener('mousemove', function _onMouseMove(e) {
+list.addEventListener('mousemove', (e) => {
   if (!e.target.getAttribute('data-content') || target !== e.target) {
     hoops.stop();
   } else {
@@ -53,3 +50,9 @@ window.addEventListener('mousemove', function _onMouseMove(e) {
   target = e.target;
 });
 
+list.addEventListener('mouseleave', () => {
+  hoops.stop();
+  track.stop();
+});
+
+window.addEventListener('load', setup.start);
