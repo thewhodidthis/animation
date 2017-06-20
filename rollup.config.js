@@ -8,8 +8,8 @@ export default {
   targets: [
     {
       format: 'iife',
-      dest: 'dist/animation.js',
       moduleName: 'Animation',
+      dest: 'dist/animation.js',
     },
     {
       format: 'cjs',
