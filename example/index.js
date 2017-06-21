@@ -1,18 +1,64 @@
-const list = document.getElementById('list');
-const items = document.getElementsByTagName('li');
-const master = items[0];
+(function () {
+'use strict';
 
-const emojiCodes = '😁,😂,😃,😄,😠,😆,😉,😊,😋,😌,😏,😜';
-const emoji = emojiCodes.split(',');
-const emojiTotal = emoji.length;
-const cellsTotal = 50;
+// # Animation
+// rAF loop toggle
+
+var createLoop$1 = function createLoop(callback) {
+  if (callback === undefined || typeof callback !== 'function') {
+    throw TypeError('Missing callback');
+  }
+
+  // Track progress
+  var id = void 0;
+
+  // Next
+  var tick = function tick(fn) {
+    return window.requestAnimationFrame(fn);
+  };
+
+  // On each frame
+  var loop = function loop(elapsed) {
+    callback(id, elapsed);
+
+    // Skip if idle
+    if (id) {
+      id = tick(loop);
+    }
+  };
+
+  // Turn off if running
+  var stop = function stop() {
+    id = id && window.cancelAnimationFrame(id);
+
+    return id;
+  };
+
+  // Make sure these don't stack up
+  var play = function play() {
+    id = id || tick(loop);
+
+    return id;
+  };
+
+  return { play: play, stop: stop, start: play, pause: stop };
+};
+
+var list = document.getElementById('list');
+var items = document.getElementsByTagName('li');
+var master = items[0];
+
+var emojiCodes = '😁,😂,😃,😄,😠,😆,😉,😊,😋,😌,😏,😜';
+var emoji = emojiCodes.split(',');
+var emojiTotal = emoji.length;
+var cellsTotal = 50;
 
 // Show in order
-const setup = Animation(() => {
-  const currentTotal = items.length;
+var setup = createLoop$1(function () {
+  var currentTotal = items.length;
 
-  const item = items[currentTotal - 1];
-  const seed = Math.floor(Math.random() * emojiTotal);
+  var item = items[currentTotal - 1];
+  var seed = Math.floor(Math.random() * emojiTotal);
 
   item.setAttribute('data-content', emoji[seed]);
   list.appendChild(master.cloneNode(true));
@@ -22,16 +68,16 @@ const setup = Animation(() => {
   }
 });
 
-let target;
+var target = void 0;
 
-const hoops = Animation((frame) => {
+var hoops = createLoop$1(function (frame) {
   if (frame % 5 === 0) {
     target.setAttribute('data-content', emoji[frame % emojiTotal]);
   }
 });
 
 // Track mouse position
-const track = Animation(() => {
+var track = createLoop$1(function () {
   hoops.play();
   track.stop();
 });
@@ -40,7 +86,7 @@ if (window !== window.top) {
   document.documentElement.classList.add('is-iframe');
 }
 
-list.addEventListener('mousemove', (e) => {
+list.addEventListener('mousemove', function (e) {
   if (!e.target.getAttribute('data-content') || target !== e.target) {
     hoops.stop();
   } else {
@@ -50,9 +96,11 @@ list.addEventListener('mousemove', (e) => {
   target = e.target;
 });
 
-list.addEventListener('mouseleave', () => {
+list.addEventListener('mouseleave', function () {
   hoops.stop();
   track.stop();
 });
 
 window.addEventListener('load', setup.start);
+
+}());
