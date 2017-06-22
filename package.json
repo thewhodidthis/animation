@@ -29,7 +29,7 @@
     "example": "npm run example:build && npm run example:serve",
     "example:build": "rollup -c -i example/index.es -f iife -o example/index.js",
     "example:serve": "php -S localhost:8000 -t example/",
-    "example:press": "rsync -avruzLPC --exclude=.DS_Store ./example/ $npm_package_config_remote"
+    "example:press": "rsync -avruzLPC --delete --exclude=.DS_Store ./example/ $npm_package_config_remote"
   },
   "engines": {
     "node": ">=4.2.4",
