@@ -1,8 +1,7 @@
 import Animation from '../index.es';
 
-const list = document.getElementById('list');
+const list = document.querySelector('ul');
 const bits = document.getElementsByTagName('li');
-const papa = bits[0];
 
 const emojiCodes = '😁,😂,😃,😄,😠,😆,😉,😊,😋,😌,😏,😜';
 const emoji = emojiCodes.split(',');
@@ -17,9 +16,9 @@ const setup = Animation(() => {
   const seed = Math.floor(Math.random() * emojiTotal);
 
   item.setAttribute('data-content', emoji[seed]);
-  list.appendChild(papa.cloneNode(true));
+  list.appendChild(item.cloneNode(true));
 
-  if (currentTotal >= cellsTotal) {
+  if (currentTotal >= cellsTotal - 1) {
     setup.stop();
   }
 });

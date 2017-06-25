@@ -44,9 +44,8 @@ var createLoop$1 = function createLoop(callback) {
   return { play: play, stop: stop, start: play, pause: stop };
 };
 
-var list = document.getElementById('list');
-var items = document.getElementsByTagName('li');
-var master = items[0];
+var list = document.querySelector('ul');
+var bits = document.getElementsByTagName('li');
 
 var emojiCodes = '😁,😂,😃,😄,😠,😆,😉,😊,😋,😌,😏,😜';
 var emoji = emojiCodes.split(',');
@@ -55,15 +54,15 @@ var cellsTotal = 60;
 
 // Show in order
 var setup = createLoop$1(function () {
-  var currentTotal = items.length;
+  var currentTotal = bits.length;
 
-  var item = items[currentTotal - 1];
+  var item = bits[currentTotal - 1];
   var seed = Math.floor(Math.random() * emojiTotal);
 
   item.setAttribute('data-content', emoji[seed]);
-  list.appendChild(master.cloneNode(true));
+  list.appendChild(item.cloneNode(true));
 
-  if (currentTotal >= cellsTotal) {
+  if (currentTotal >= cellsTotal - 1) {
     setup.stop();
   }
 });
