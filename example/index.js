@@ -51,7 +51,7 @@ var master = items[0];
 var emojiCodes = '😁,😂,😃,😄,😠,😆,😉,😊,😋,😌,😏,😜';
 var emoji = emojiCodes.split(',');
 var emojiTotal = emoji.length;
-var cellsTotal = 50;
+var cellsTotal = 60;
 
 // Show in order
 var setup = createLoop$1(function () {

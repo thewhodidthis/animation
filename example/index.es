@@ -1,23 +1,23 @@
 import Animation from '../index.es';
 
 const list = document.getElementById('list');
-const items = document.getElementsByTagName('li');
-const master = items[0];
+const bits = document.getElementsByTagName('li');
+const papa = bits[0];
 
 const emojiCodes = '😁,😂,😃,😄,😠,😆,😉,😊,😋,😌,😏,😜';
 const emoji = emojiCodes.split(',');
 const emojiTotal = emoji.length;
-const cellsTotal = 50;
+const cellsTotal = 60;
 
 // Show in order
 const setup = Animation(() => {
-  const currentTotal = items.length;
+  const currentTotal = bits.length;
 
-  const item = items[currentTotal - 1];
+  const item = bits[currentTotal - 1];
   const seed = Math.floor(Math.random() * emojiTotal);
 
   item.setAttribute('data-content', emoji[seed]);
-  list.appendChild(master.cloneNode(true));
+  list.appendChild(papa.cloneNode(true));
 
   if (currentTotal >= cellsTotal) {
     setup.stop();
@@ -58,3 +58,4 @@ list.addEventListener('mouseleave', () => {
 });
 
 window.addEventListener('load', setup.start);
+
