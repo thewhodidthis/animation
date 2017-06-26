@@ -58,13 +58,7 @@ li::before {
   transform: translate(-50%, -50%) rotateZ(0);
 }
 
-.is-iframe figure {
-  top: 0;
-  left: 0;
-  margin: 0;
-}
-
-.is-iframe figcaption {
+li:only-child {
   display: none;
 }
 

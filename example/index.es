@@ -37,10 +37,6 @@ const track = Animation(() => {
   track.stop();
 });
 
-if (window !== window.top) {
-  document.documentElement.classList.add('is-iframe');
-}
-
 list.addEventListener('mousemove', (e) => {
   if (!e.target.getAttribute('data-content') || target !== e.target) {
     hoops.stop();

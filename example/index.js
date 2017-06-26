@@ -81,10 +81,6 @@ var track = createLoop$1(function () {
   track.stop();
 });
 
-if (window !== window.top) {
-  document.documentElement.classList.add('is-iframe');
-}
-
 list.addEventListener('mousemove', function (e) {
   if (!e.target.getAttribute('data-content') || target !== e.target) {
     hoops.stop();
