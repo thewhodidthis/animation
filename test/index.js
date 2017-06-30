@@ -1,14 +1,6 @@
 const test = require('tape');
 const Animation = require('../');
 
-// Add favicon
-const linkTag = document.createElement('link');
-
-linkTag.rel = 'shortcut icon';
-linkTag.href = 'data:;base64,iVBORw0KGgo=';
-
-document.head.appendChild(linkTag);
-
 test('will throw sans callback', (t) => {
   t.throws(Animation, Error);
   t.end();
