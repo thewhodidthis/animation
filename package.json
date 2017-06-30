@@ -16,14 +16,11 @@
   "bugs": {
     "url": "https://github.com/thewhodidthis/animation/issues"
   },
-  "directories": {
-    "example": "example"
-  },
   "config": {
     "remote": "thewhodidthis@zazie:www/example/animation/"
   },
   "scripts": {
-    "test": "browserify test/*.js | testling -x open",
+    "test": "browserify test | testling -x open",
     "lint": "eslint . example --ext .es test/*.js",
     "start": "rollup -c && uglifyjs dist/animation.js -cmo dist/animation.min.js",
     "example": "npm run example:build && npm run example:serve",
