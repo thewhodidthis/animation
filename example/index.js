@@ -4,21 +4,19 @@
 // # Animation
 // rAF loop toggle
 
-var createLoop$1 = function createLoop(callback) {
+var createLoop = function (callback) {
   if (callback === undefined || typeof callback !== 'function') {
-    throw TypeError('Missing callback');
+    throw TypeError('Missing callback')
   }
 
   // Track progress
-  var id = void 0;
+  var id;
 
   // Next
-  var tick = function tick(fn) {
-    return window.requestAnimationFrame(fn);
-  };
+  var tick = function (fn) { return window.requestAnimationFrame(fn); };
 
   // On each frame
-  var loop = function loop(elapsed) {
+  var loop = function (elapsed) {
     callback(id, elapsed);
 
     // Skip if idle
@@ -28,20 +26,20 @@ var createLoop$1 = function createLoop(callback) {
   };
 
   // Turn off if running
-  var stop = function stop() {
+  var stop = function () {
     id = id && window.cancelAnimationFrame(id);
 
-    return id;
+    return id
   };
 
   // Make sure these don't stack up
-  var play = function play() {
+  var play = function () {
     id = id || tick(loop);
 
-    return id;
+    return id
   };
 
-  return { play: play, stop: stop, start: play, pause: stop };
+  return { play: play, stop: stop, start: play, pause: stop }
 };
 
 var list = document.querySelector('ul');
@@ -53,7 +51,7 @@ var emojiTotal = emoji.length;
 var cellsTotal = 60;
 
 // Show in order
-var setup = createLoop$1(function () {
+var setup = createLoop(function () {
   var currentTotal = bits.length;
 
   var item = bits[currentTotal - 1];
@@ -67,16 +65,16 @@ var setup = createLoop$1(function () {
   }
 });
 
-var target = void 0;
+var target;
 
-var hoops = createLoop$1(function (frame) {
+var hoops = createLoop(function (frame) {
   if (frame % 5 === 0) {
     target.setAttribute('data-content', emoji[frame % emojiTotal]);
   }
 });
 
 // Track mouse position
-var track = createLoop$1(function () {
+var track = createLoop(function () {
   hoops.play();
   track.stop();
 });
@@ -99,3 +97,4 @@ list.addEventListener('mouseleave', function () {
 window.addEventListener('load', setup.start);
 
 }());
+

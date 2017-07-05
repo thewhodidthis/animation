@@ -1,56 +1,55 @@
-import Animation from '../index.es';
+import createLoop from '../index.es'
 
-const list = document.querySelector('ul');
-const bits = document.getElementsByTagName('li');
+const list = document.querySelector('ul')
+const bits = document.getElementsByTagName('li')
 
-const emojiCodes = '😁,😂,😃,😄,😠,😆,😉,😊,😋,😌,😏,😜';
-const emoji = emojiCodes.split(',');
-const emojiTotal = emoji.length;
-const cellsTotal = 60;
+const emojiCodes = '😁,😂,😃,😄,😠,😆,😉,😊,😋,😌,😏,😜'
+const emoji = emojiCodes.split(',')
+const emojiTotal = emoji.length
+const cellsTotal = 60
 
 // Show in order
-const setup = Animation(() => {
-  const currentTotal = bits.length;
+const setup = createLoop(() => {
+  const currentTotal = bits.length
 
-  const item = bits[currentTotal - 1];
-  const seed = Math.floor(Math.random() * emojiTotal);
+  const item = bits[currentTotal - 1]
+  const seed = Math.floor(Math.random() * emojiTotal)
 
-  item.setAttribute('data-content', emoji[seed]);
-  list.appendChild(item.cloneNode(true));
+  item.setAttribute('data-content', emoji[seed])
+  list.appendChild(item.cloneNode(true))
 
   if (currentTotal >= cellsTotal - 1) {
-    setup.stop();
+    setup.stop()
   }
-});
+})
 
-let target;
+let target
 
-const hoops = Animation((frame) => {
+const hoops = createLoop((frame) => {
   if (frame % 5 === 0) {
-    target.setAttribute('data-content', emoji[frame % emojiTotal]);
+    target.setAttribute('data-content', emoji[frame % emojiTotal])
   }
-});
+})
 
 // Track mouse position
-const track = Animation(() => {
-  hoops.play();
-  track.stop();
-});
+const track = createLoop(() => {
+  hoops.play()
+  track.stop()
+})
 
 list.addEventListener('mousemove', (e) => {
   if (!e.target.getAttribute('data-content') || target !== e.target) {
-    hoops.stop();
+    hoops.stop()
   } else {
-    track.play();
+    track.play()
   }
 
-  target = e.target;
-});
+  target = e.target
+})
 
 list.addEventListener('mouseleave', () => {
-  hoops.stop();
-  track.stop();
-});
+  hoops.stop()
+  track.stop()
+})
 
-window.addEventListener('load', setup.start);
-
+window.addEventListener('load', setup.start)
