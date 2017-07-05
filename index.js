@@ -3,21 +3,19 @@
 // # Animation
 // rAF loop toggle
 
-var createLoop = function createLoop(callback) {
+var createLoop = function (callback) {
   if (callback === undefined || typeof callback !== 'function') {
-    throw TypeError('Missing callback');
+    throw TypeError('Missing callback')
   }
 
   // Track progress
-  var id = void 0;
+  var id;
 
   // Next
-  var tick = function tick(fn) {
-    return window.requestAnimationFrame(fn);
-  };
+  var tick = function (fn) { return window.requestAnimationFrame(fn); };
 
   // On each frame
-  var loop = function loop(elapsed) {
+  var loop = function (elapsed) {
     callback(id, elapsed);
 
     // Skip if idle
@@ -27,20 +25,21 @@ var createLoop = function createLoop(callback) {
   };
 
   // Turn off if running
-  var stop = function stop() {
+  var stop = function () {
     id = id && window.cancelAnimationFrame(id);
 
-    return id;
+    return id
   };
 
   // Make sure these don't stack up
-  var play = function play() {
+  var play = function () {
     id = id || tick(loop);
 
-    return id;
+    return id
   };
 
-  return { play: play, stop: stop, start: play, pause: stop };
+  return { play: play, stop: stop, start: play, pause: stop }
 };
 
 module.exports = createLoop;
+
