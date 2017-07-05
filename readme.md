@@ -7,12 +7,10 @@ npm install thewhodidthis/animation
 ```
 
 ### Usage
-```sh
-# Symlink freshly built standalone module into example folder
-# Start a php server on port 8000
-npm run example
+```js
+import createLoop from '@thewhodidthis/animation';
 
-# Open using default browser
-open http://localhost:8000
+// Logs frameId
+const animation = createLoop(console.log).start();
 ```
 
