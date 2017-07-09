@@ -1,5 +1,5 @@
 // # Animation
-// rAF loop toggle
+// RAF loop toggle
 
 const createLoop = (callback) => {
   if (callback === undefined || typeof callback !== 'function') {
