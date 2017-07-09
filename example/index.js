@@ -2,7 +2,7 @@
 'use strict';
 
 // # Animation
-// rAF loop toggle
+// RAF loop toggle
 
 var createLoop = function (callback) {
   if (callback === undefined || typeof callback !== 'function') {
