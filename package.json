@@ -27,9 +27,9 @@
   },
   "dependencies": {},
   "devDependencies": {
+    "@thewhodidthis/eslint-config": "latest",
     "browserify": "latest",
     "buble": "latest",
-    "@thewhodidthis/eslint-config": "github:thewhodidthis/eslint-config",
     "kpow": "latest",
     "rollup": "latest",
     "tape": "latest"
