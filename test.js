@@ -1,8 +1,7 @@
-const kpow = require('kpow')
+require('kpow')()
+
 const test = require('tape')
 const Animation = require('./')
-
-kpow()
 
 test('will throw sans callback', (t) => {
   t.throws(Animation, new TypeError())
