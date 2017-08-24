@@ -1,9 +1,9 @@
 body {
-  margin: 0;
-  padding: 0.5rem;
-  overflow: hidden;
   box-sizing: border-box;
   font: 16px/1.25 arial, sans-serif;
+  margin: 0;
+  overflow: hidden;
+  padding: 0.5rem;
 }
 
 small {
@@ -11,16 +11,16 @@ small {
 }
 
 p {
-  margin: 0;
   font-size: 0.875rem;
+  margin: 0;
 }
 
 figure {
-  top: 50%;
   left: 50%;
+  margin: -150px 0 0 -250px;
   position: absolute;
   text-align: center;
-  margin: -150px 0 0 -250px;
+  top: 50%;
 }
 
 figcaption {
@@ -28,34 +28,33 @@ figcaption {
 }
 
 ul {
+  height: 300px;
+  list-style: none;
   margin: 0;
+  overflow: hidden;
   padding: 0;
   width: 500px;
-  height: 300px;
-  overflow: hidden;
-  list-style: none;
 }
 
 li {
+  box-sizing: border-box;
+  display: block;
   filter: grayscale(100%);
   float: left;
-  width: 50px;
   height: 50px;
-  display: block;
   position: relative;
-  box-sizing: border-box;
+  width: 50px;
 }
 
 li::before {
-  top: 50%;
-  left: 50%;
-  display: block;
-  line-height: 1;
-  cursor: pointer;
-  content: "\1F621";
-  position: absolute;
-  font-size: 2.75rem;
   content: attr(data-content);
+  cursor: pointer;
+  display: block;
+  font-size: 2.75rem;
+  left: 50%;
+  line-height: 1;
+  position: absolute;
+  top: 50%;
   transform: translate(-50%, -50%) rotateZ(0);
 }
 
