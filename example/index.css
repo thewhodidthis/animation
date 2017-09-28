@@ -36,7 +36,8 @@ figure {
 }
 
 figcaption {
-  margin: 0.5rem;
+  margin: 0.5rem 0 0;
+  max-width: 500px;
 }
 
 ul {
@@ -62,7 +63,7 @@ li::before {
   content: attr(data-content);
   cursor: pointer;
   display: block;
-  font-size: 2.75rem;
+  font-size: 2.3875rem;
   left: 50%;
   line-height: 1;
   position: absolute;
