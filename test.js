@@ -2,25 +2,25 @@
 
 const kpow = require('kpow')
 const test = require('tape')
-const Animation = require('./')
+const createLoop = require('./')
 
 kpow()
 
 test('will throw sans callback', (t) => {
-  t.throws(Animation, new TypeError())
+  t.throws(createLoop, new TypeError())
   t.end()
 })
 
 test('will avoid stacking', (t) => {
-  const animation = Animation(Function)
-  const id = animation.start()
+  const { play, stop } = createLoop(Function)
+  const id = play()
 
-  t.doesNotThrow(animation.start, id)
+  t.doesNotThrow(play, id)
 
-  t.equals(animation.start(), id, 'frame id hasn\'t changed')
-  t.equals(animation.start(), id, 'frame id hasn\'t changed')
-  t.equals(animation.start(), id, 'frame id hasn\'t changed')
+  t.equals(play(), id, 'frame id hasn\'t changed')
+  t.equals(play(), id, 'frame id hasn\'t changed')
+  t.equals(play(), id, 'frame id hasn\'t changed')
 
-  t.notOk(animation.stop(), 'stop')
+  t.notOk(stop(), 'stop')
   t.end()
 })
