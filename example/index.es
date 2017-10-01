@@ -1,4 +1,4 @@
-import createLoop from '../index.mjs'
+import createLoop from '../index.es'
 
 const list = document.querySelector('ul')
 const bits = document.getElementsByTagName('li')
