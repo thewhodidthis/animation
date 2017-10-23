@@ -1,26 +1,33 @@
-'use strict'
+import 'cutaway'
+import { report, assert } from 'tapeless'
 
-const kpow = require('kpow')
-const test = require('tape')
-const createLoop = require('./')
+import createLoop from './index.es'
 
-kpow()
+const { ok, equal } = assert
 
-test('will throw sans callback', (t) => {
-  t.throws(createLoop, new TypeError())
-  t.end()
-})
+try {
+  createLoop()
+} catch (e) {
+  ok(e, 'thrown', 'will throw sans callback')
+  ok(e instanceof TypeError, 'TypeError')
+}
 
-test('will avoid stacking', (t) => {
-  const { play, stop } = createLoop(Function)
-  const id = play()
+const { play, stop } = createLoop(Function)
 
-  t.doesNotThrow(play, id)
+try {
+  const f = play()
 
-  t.equals(play(), id, 'frame id hasn\'t changed')
-  t.equals(play(), id, 'frame id hasn\'t changed')
-  t.equals(play(), id, 'frame id hasn\'t changed')
+  ok(f, 'play', 'does not throw')
+} catch (e) {
+  ok(e, 'unexpected')
+}
 
-  t.notOk(stop(), 'stop')
-  t.end()
-})
+const id = play()
+
+equal(play(), id, 'frame id hasn\'t changed', 'will avoid stacking')
+equal(play(), id, 'frame id hasn\'t changed')
+equal(play(), id, 'frame id hasn\'t changed')
+
+ok(!stop(), 'stop')
+
+report()
