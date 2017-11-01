@@ -1,6 +1,5 @@
 import 'cutaway'
 import { report, assert } from 'tapeless'
-
 import createLoop from './index.es'
 
 const { ok, equal } = assert
