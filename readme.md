@@ -10,6 +10,6 @@ npm i thewhodidthis/animation
 ```js
 import createLoop from '@thewhodidthis/animation'
 
-// Logs frameId
-const animation = createLoop(console.log).start()
+// Logs frameId, elapsed time
+createLoop(console.log).start()
 ```
