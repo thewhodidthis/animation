@@ -1,5 +1,4 @@
 html {
-  background: #eee;
   font: 16px/1.25 arial, sans-serif;
 }
 
@@ -30,7 +29,7 @@ p {
 
 figure {
   left: 50%;
-  margin: -150px 0 0 -250px;
+  margin: -180px 0 0 -320px;
   position: absolute;
   text-align: center;
   top: 50%;
@@ -38,45 +37,13 @@ figure {
 
 figcaption {
   margin: 0.5rem 0 0;
-  max-width: 500px;
 }
 
-ul {
-  height: 300px;
-  list-style: none;
-  margin: 0;
-  overflow: hidden;
-  padding: 0;
-  width: 500px;
-}
-
-li {
-  box-sizing: border-box;
+canvas,
+img {
   display: block;
-  filter: grayscale(100%);
-  float: left;
-  height: 50px;
-  position: relative;
-  width: 50px;
 }
 
-li::before {
-  content: attr(data-content);
-  cursor: pointer;
-  display: block;
-  font-size: 2.3875rem;
-  left: 50%;
-  line-height: 1;
-  position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%) rotateZ(0);
+canvas {
+  background: #000;
 }
-
-li:only-child {
-  display: none;
-}
-
-li:hover {
-  filter: grayscale(0);
-}
-

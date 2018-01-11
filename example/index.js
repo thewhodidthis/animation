@@ -42,59 +42,100 @@ var createLoop = function (callback) {
   return { play: play, stop: stop, start: play, pause: stop }
 };
 
-var list = document.querySelector('ul');
-var bits = document.getElementsByTagName('li');
+var TAU = Math.PI * 2;
+var deg = TAU / 360;
 
-var emojiCodes = '😁,😂,😃,😄,😠,😆,😉,😊,😋,😌,😏,😜';
-var emoji = emojiCodes.split(',');
-var emojiTotal = emoji.length;
-var cellsTotal = 60;
+// Adapted from Foggy Tree by Chris Coyne,
+// http://www.contextfreeart.org/gallery/view.php?id=4
+/* eslint no-param-reassign: 1 */
+var tree = function (chances, runs) {
+  if ( runs === void 0 ) runs = 0;
 
-// Show in order
-var setup = createLoop(function () {
-  var currentTotal = bits.length;
+  var jeez = { a: deg * 1.5, b: deg * 40 };
+  var data = [];
 
-  var item = bits[currentTotal - 1];
-  var seed = Math.floor(Math.random() * emojiTotal);
+  var next = function (x1, y1, size, turn, tick) {
+    if ( tick === void 0 ) tick = chances[runs];
 
-  item.setAttribute('data-content', emoji[seed]);
-  list.appendChild(item.cloneNode(true));
+    if (size > 1) {
+      data.push({ x: x1, y: y1, r: size });
 
-  if (currentTotal >= cellsTotal - 1) {
-    setup.stop();
+      var x2 = Math.cos(turn);
+      var y2 = Math.sin(turn);
+
+      if (Math.random() > tick) {
+        var from = jeez.a;
+        var head = runs === 0 % 2 ? turn - from : turn + from;
+
+        x2 *= size;
+        y2 *= size;
+
+        x2 += x1;
+        y2 += y1;
+
+        next(x2, y2, size * 0.98, head, tick);
+      } else {
+        var tock = chances[runs];
+
+        runs += 1;
+        runs %= chances.length;
+
+        x2 += x1;
+        y2 += y1;
+
+        next(x2, y2, size * 0.9, turn + jeez.a, tock);
+        next(x2, y2, size * 0.6, turn + jeez.b, tick);
+        next(x2, y2, size * 0.5, turn - jeez.b, tock);
+      }
+    }
+
+    return data
+  };
+
+  return next
+};
+
+var seed = function () {
+  var ends = [0.1, 0.05];
+  var grow = tree(ends);
+  var data = grow(0, 0, 9, deg * 270, 0.05);
+
+  return data
+};
+
+var canvas = document.querySelector('canvas');
+var target = canvas.getContext('2d');
+
+var w = canvas.width;
+var h = canvas.height;
+
+target.fillStyle = 'white';
+target.translate(w * 0.5, h);
+
+var points = seed();
+
+createLoop(function () {
+  if (!points.length) {
+    points = seed();
   }
+
+  var ref = points.shift();
+  var x = ref.x;
+  var y = ref.y;
+  var r = ref.r;
+
+  target.beginPath();
+  target.arc(x, y, r * 0.5, 0, TAU);
+  target.closePath();
+  target.fill();
+}).start();
+
+document.addEventListener('click', function () {
+  target.clearRect(-w * 0.5, -h, w, h);
+
+  // Start again
+  points.length = 0;
 });
-
-var target;
-
-var hoops = createLoop(function (frame) {
-  if (frame % 5 === 0) {
-    target.setAttribute('data-content', emoji[frame % emojiTotal]);
-  }
-});
-
-// Track mouse position
-var track = createLoop(function () {
-  hoops.play();
-  track.stop();
-});
-
-list.addEventListener('mousemove', function (e) {
-  if (!e.target.getAttribute('data-content') || target !== e.target) {
-    hoops.stop();
-  } else {
-    track.play();
-  }
-
-  target = e.target;
-});
-
-list.addEventListener('mouseleave', function () {
-  hoops.stop();
-  track.stop();
-});
-
-window.addEventListener('load', setup.start);
 
 }());
 
