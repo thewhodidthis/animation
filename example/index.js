@@ -48,24 +48,33 @@ var deg = TAU / 360;
 // Adapted from Foggy Tree by Chris Coyne,
 // http://www.contextfreeart.org/gallery/view.php?id=4
 /* eslint no-param-reassign: 1 */
-var tree = function (chances, runs) {
-  if ( runs === void 0 ) runs = 0;
-
-  var jeez = { a: deg * 1.5, b: deg * 40 };
+var tree = function (ends) {
+  var jeez = { a: deg, b: deg * 40 };
   var data = [];
 
   var next = function (x1, y1, size, turn, tick) {
-    if ( tick === void 0 ) tick = chances[runs];
+    if ( tick === void 0 ) tick = 0;
 
     if (size > 1) {
-      data.push({ x: x1, y: y1, r: size });
+      var forkMaybe = Math.random() < ends[tick];
 
       var x2 = Math.cos(turn);
       var y2 = Math.sin(turn);
 
-      if (Math.random() > tick) {
+      data.push({ x: x1, y: y1, r: size });
+
+      if (forkMaybe) {
+        var tock = (tick + 1) % ends.length;
+
+        x2 += x1;
+        y2 += y1;
+
+        next(x2, y2, size * 0.9, turn + jeez.a, tock);
+        next(x2, y2, size * 0.6, turn + jeez.b, tick);
+        next(x2, y2, size * 0.5, turn - jeez.b, tock);
+      } else {
         var from = jeez.a;
-        var head = runs === 0 % 2 ? turn - from : turn + from;
+        var head = tick === 0 % 2 ? turn - from : turn + from;
 
         x2 *= size;
         y2 *= size;
@@ -74,18 +83,6 @@ var tree = function (chances, runs) {
         y2 += y1;
 
         next(x2, y2, size * 0.98, head, tick);
-      } else {
-        var tock = chances[runs];
-
-        runs += 1;
-        runs %= chances.length;
-
-        x2 += x1;
-        y2 += y1;
-
-        next(x2, y2, size * 0.9, turn + jeez.a, tock);
-        next(x2, y2, size * 0.6, turn + jeez.b, tick);
-        next(x2, y2, size * 0.5, turn - jeez.b, tock);
       }
     }
 
@@ -96,9 +93,9 @@ var tree = function (chances, runs) {
 };
 
 var seed = function () {
-  var ends = [0.1, 0.05];
+  var ends = [0.05, 0.1];
   var grow = tree(ends);
-  var data = grow(0, 0, 9, deg * 270, 0.05);
+  var data = grow(0, 0, 9, deg * 270);
 
   return data
 };
