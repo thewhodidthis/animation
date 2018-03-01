@@ -3,43 +3,42 @@
 // # Animation
 // RAF loop toggle
 
-var createLoop = function (callback) {
-  if (callback === undefined || typeof callback !== 'function') {
+const createLoop = (tick) => {
+  if (tick === undefined || typeof tick !== 'function') {
     throw TypeError('Missing callback')
   }
 
-  // Track progress
-  var id;
+  // Schedule
+  const next = fn => window.requestAnimationFrame(fn);
 
-  // Next
-  var tick = function (fn) { return window.requestAnimationFrame(fn); };
+  // Track progress
+  let id;
 
   // On each frame
-  var loop = function (elapsed) {
-    callback(id, elapsed);
+  const loop = (elapsed) => {
+    tick(id, elapsed);
 
     // Skip if idle
     if (id) {
-      id = tick(loop);
+      id = next(loop);
     }
   };
 
   // Turn off if running
-  var stop = function () {
+  const stop = () => {
     id = id && window.cancelAnimationFrame(id);
 
     return id
   };
 
   // Make sure these don't stack up
-  var play = function () {
-    id = id || tick(loop);
+  const play = () => {
+    id = id || next(loop);
 
     return id
   };
 
-  return { play: play, stop: stop, start: play, pause: stop }
+  return { play, stop, start: play, pause: stop }
 };
 
 module.exports = createLoop;
-
