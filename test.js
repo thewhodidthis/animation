@@ -7,8 +7,11 @@ const { ok, equal } = assert
 try {
   createLoop()
 } catch (e) {
-  ok(e, 'thrown', 'will throw sans callback')
-  ok(e instanceof TypeError, 'TypeError')
+  ok
+    .describe('thrown')
+    .test(e)
+    .describe('TypeError', 'will throw sans callback')
+    .test(e instanceof TypeError)
 }
 
 const { play, stop } = createLoop(Function)
@@ -16,17 +19,27 @@ const { play, stop } = createLoop(Function)
 try {
   const f = play()
 
-  ok(f, 'play', 'does not throw')
+  ok
+    .describe('play', 'does not throw')
+    .test(f)
 } catch (e) {
-  ok(e, 'unexpected')
+  ok
+    .describe('unexpected')
+    .test(e)
 }
 
 const id = play()
 
-equal(play(), id, 'frame id hasn\'t changed', 'will avoid stacking')
-equal(play(), id, 'frame id hasn\'t changed')
-equal(play(), id, 'frame id hasn\'t changed')
+equal
+  .describe('frame id hasn\'t changed')
+  .test(play(), id)
+  .describe('frame id hasn\'t changed')
+  .test(play(), id)
+  .describe('frame id hasn\'t changed', 'will avoid stacking')
+  .test(play(), id)
 
-ok(!stop(), 'stop')
+ok
+  .describe('stop')
+  .test(!stop())
 
 report()
