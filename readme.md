@@ -13,3 +13,8 @@ import createLoop from '@thewhodidthis/animation'
 // Logs frameId, elapsed time
 createLoop(console.log).start()
 ```
+
+### Test
+```sh
+npm i && npm t
+```
