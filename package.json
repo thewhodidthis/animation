@@ -28,13 +28,13 @@
     "npm": ">=3.10.10"
   },
   "devDependencies": {
-    "@thewhodidthis/eslint-config": "latest",
-    "cutaway": "latest",
+    "@thewhodidthis/eslint-config": "^0.0.11",
+    "cutaway": "^0.0.7",
     "eslint": "^6.8.0",
-    "kpow": "latest",
+    "kpow": "^0.1.4",
     "rollup": "^1.29.1",
-    "rollup-config-x": "latest",
-    "tapeless": "latest"
+    "rollup-config-x": "^1.0.2",
+    "tapeless": "^0.0.7"
   },
   "keywords": [
     "animation",
