@@ -1,6 +1,6 @@
 {
   "name": "@thewhodidthis/animation",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "Helps setup raf based loops",
   "main": "index",
   "module": "index.mjs",
