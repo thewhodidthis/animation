@@ -19,10 +19,6 @@ a:hover {
   text-decoration: underline;
 }
 
-small {
-  font-size: 0.75rem;
-}
-
 p {
   font-size: 0.875rem;
   margin: 0;
@@ -44,6 +40,6 @@ img {
 }
 
 canvas {
+  background: white url('screenshot.png') center/contain no-repeat;
   display: block;
-  background: white url('screenshot.jpg') center/contain no-repeat;
 }
