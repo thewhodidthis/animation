@@ -49,7 +49,7 @@
   // http://www.contextfreeart.org/gallery/view.php?id=4
   /* eslint no-param-reassign: 1 */
   const tree = (ends) => {
-    const jeez = { a: deg, b: deg * 40 };
+    const drop = { a: deg, b: deg * 40 };
     const data = [];
 
     const next = (x1, y1, size, turn, tick = 0) => {
@@ -67,11 +67,11 @@
           x2 += x1;
           y2 += y1;
 
-          next(x2, y2, size * 0.9, turn + jeez.a, tock);
-          next(x2, y2, size * 0.6, turn + jeez.b, tick);
-          next(x2, y2, size * 0.5, turn - jeez.b, tock);
+          next(x2, y2, size * 0.9, turn + drop.a, tock);
+          next(x2, y2, size * 0.6, turn + drop.b, tick);
+          next(x2, y2, size * 0.5, turn - drop.b, tock);
         } else {
-          const from = jeez.a;
+          const from = drop.a;
           const head = tick === 0 % 2 ? turn - from : turn + from;
 
           x2 *= size;
