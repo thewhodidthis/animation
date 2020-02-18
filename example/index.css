@@ -27,7 +27,6 @@ p {
 figure {
   margin: auto;
   max-width: 540px;
-  padding: 1.5rem 0 1rem;
 }
 
 figcaption {
@@ -40,6 +39,5 @@ img {
 }
 
 canvas {
-  background: white url('screenshot.png') center/contain no-repeat;
   display: block;
 }
