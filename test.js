@@ -2,7 +2,7 @@ import 'cutaway'
 import { report, assert } from 'tapeless/browser'
 import createLoop from './index.mjs'
 
-const { ok, equal } = assert
+const { ok, notOk, equal } = assert
 
 try {
   createLoop()
@@ -38,8 +38,8 @@ equal
   .describe('frame id hasn\'t changed', 'will avoid stacking')
   .test(play(), id)
 
-ok
+notOk
   .describe('stop')
-  .test(!stop())
+  .test(stop())
 
 report()
