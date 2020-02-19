@@ -10,7 +10,7 @@ npm i thewhodidthis/animation
 ```js
 import createLoop from '@thewhodidthis/animation'
 
-// Logs frameId, elapsed time
+// Logs frameId, elapsed time on every tick
 createLoop(console.log).start()
 ```
 
