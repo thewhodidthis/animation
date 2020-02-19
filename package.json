@@ -2,33 +2,37 @@
   "name": "@thewhodidthis/animation",
   "version": "0.1.14",
   "description": "Helps setup raf based loops",
-  "main": "index",
-  "module": "index.mjs",
+  "keywords": [
+    "animation",
+    "loop",
+    "raf"
+  ],
   "homepage": "https://github.com/thewhodidthis/animation#readme",
+  "bugs": {
+    "url": "https://github.com/thewhodidthis/animation/issues"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/thewhodidthis/animation.git"
   },
-  "bugs": {
-    "url": "https://github.com/thewhodidthis/animation/issues"
-  },
+  "license": "Unlicense",
+  "author": "sChzs BkgNns <sotirios.bakagiannis@gmail.com> (https://www.thewhodidthis.com)",
+  "main": "index",
+  "module": "index.mjs",
   "scripts": {
-    "pretest": "eslint test.js",
-    "test": "rollup -c node:x -f iife test.js | kpow",
+    "preexample": "eslint example/index.js",
+    "example": "cd example; rollup -f iife index.js > bundle.js",
     "prestart": "eslint index.mjs",
     "start": "rollup -f cjs index.mjs > index.js",
-    "preexample": "eslint example/index.js",
-    "example": "cd example; rollup -f iife index.js > bundle.js"
+    "pretest": "eslint test.js",
+    "test": "rollup -c node:x -f iife test.js | kpow",
+    "posttest": "eslint package.json"
   },
   "eslintConfig": {
     "extends": "@thewhodidthis"
   },
-  "engines": {
-    "node": ">=6.11.0",
-    "npm": ">=3.10.10"
-  },
   "devDependencies": {
-    "@thewhodidthis/eslint-config": "^0.0.11",
+    "@thewhodidthis/eslint-config": "^0.0.15",
     "cutaway": "^0.0.7",
     "eslint": "^6.8.0",
     "kpow": "^0.1.4",
@@ -36,11 +40,8 @@
     "rollup-config-x": "^1.0.3",
     "tapeless": "^0.0.7"
   },
-  "keywords": [
-    "animation",
-    "loop",
-    "raf"
-  ],
-  "author": "sChzs BkgNns <sotirios.bakagiannis@gmail.com> (https://www.thewhodidthis.com)",
-  "license": "Unlicense"
+  "engines": {
+    "node": ">=6.11.0",
+    "npm": ">=3.10.10"
+  }
 }
