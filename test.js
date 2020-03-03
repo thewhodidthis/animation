@@ -14,7 +14,14 @@ try {
     .test(e instanceof TypeError)
 }
 
-const { play, stop } = createLoop(Function)
+const animation = createLoop(Function)
+const methods = ['start', 'stop', 'play', 'pause']
+
+ok
+  .describe('methods in place')
+  .test(Object.keys(animation).every(k => methods.includes(k)))
+
+const { play, stop } = animation
 
 try {
   const f = play()
