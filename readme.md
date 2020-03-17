@@ -13,7 +13,7 @@ function loop(now) {
 }
 ```
 
-Ending that loop on demand such as when [debouncing mouse events](https://www.html5rocks.com/en/tutorials/speed/animations/#debouncing-mouse-events) would involve keeping track of each `requestAnimationFrame` index to then be calling [`cancelAnimationFrame`](https://developer.mozilla.org/en-US/docs/Web/API/Window/cancelAnimationFrame) with,
+Ending that loop on demand such as when [debouncing mouse events](https://www.html5rocks.com/en/tutorials/speed/animations/#debouncing-mouse-events) would involve keeping track of each `requestAnimationFrame` (rAF) index to then be calling [`cancelAnimationFrame`](https://developer.mozilla.org/en-US/docs/Web/API/Window/cancelAnimationFrame) with,
 
 ```js
 // Start
@@ -43,7 +43,7 @@ This module is essentially a closure around that otherwise free roaming frame re
 npm i @thewhodidthis/animation
 ```
 
-The default and only export is an anonymous function requiring a callback argument to be invoked before the next repaint, same as using `requestAnimationFrame` directly. In line with the [revealing module pattern](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#revealingmodulepatternjavascript) expect an anonymous object with `start()`  and `stop()` methods attached and aliased play / pause respectively.
+The default and only export is an anonymous function requiring a callback argument to be invoked before the next repaint, same as using _rAF_ directly. In line with the [revealing module pattern](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#revealingmodulepatternjavascript) expect an anonymous object with `start()`  and `stop()` methods attached and aliased play / pause respectively.
 
 ```js
 import createLoop from '@thewhodidthis/animation'
@@ -63,4 +63,4 @@ console.assert(Object.keys(animation).every(k => ['start', 'stop', 'play', 'paus
 frameIndexMaybe = animation.start()
 ```
 
-The callback is passed a [`DOMHighResTimeStamp`](https://developer.mozilla.org/en-US/docs/Web/API/DOMHighResTimeStamp) and the frame reference or `requestID`. Just in case, checks are included to allow for running multiple loops in parallel.
+The callback is passed a [`DOMHighResTimeStamp`](https://developer.mozilla.org/en-US/docs/Web/API/DOMHighResTimeStamp) and the frame reference. Just in case, checks are included to allow for running multiple loops in parallel.
