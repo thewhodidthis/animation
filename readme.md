@@ -1,5 +1,4 @@
-Scheduling regular updates in the interest of creating [smooth running](https://dev.opera.com/articles/better-performance-with-requestanimationframe) browser animations in JS might  
-conceivably look a bit like,
+Scheduling regular updates in the interest of creating [smooth running](https://dev.opera.com/articles/better-performance-with-requestanimationframe) browser animations in JS might conceivably look a bit like,
 
 ```js
 // Start
