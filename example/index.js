@@ -1,75 +1,27 @@
 import createLoop from '../index.mjs'
 
 const TAU = Math.PI * 2
-const deg = TAU / 360
-
-// Adapted from Foggy Tree by Chris Coyne,
-// http://www.contextfreeart.org/gallery/view.php?id=4
-/* eslint no-param-reassign: 1 */
-const tree = (ends) => {
-  const drop = { a: deg, b: deg * 40 }
-  const data = []
-
-  const next = (x1, y1, size, turn, tick = 0) => {
-    if (size > 1) {
-      const forkMaybe = Math.random() < ends[tick]
-
-      let x2 = Math.cos(turn)
-      let y2 = Math.sin(turn)
-
-      data.push({ x: x1, y: y1, r: size })
-
-      if (forkMaybe) {
-        const tock = (tick + 1) % ends.length
-
-        x2 += x1
-        y2 += y1
-
-        next(x2, y2, size * 0.9, turn + drop.a, tock)
-        next(x2, y2, size * 0.6, turn + drop.b, tick)
-        next(x2, y2, size * 0.5, turn - drop.b, tock)
-      } else {
-        const from = drop.a
-        const head = tick === 0 % 2 ? turn - from : turn + from
-
-        x2 *= size
-        y2 *= size
-
-        x2 += x1
-        y2 += y1
-
-        next(x2, y2, size * 0.98, head, tick)
-      }
-    }
-
-    return data
-  }
-
-  return next
-}
-
-const seed = () => {
-  const ends = [0.05, 0.1]
-  const grow = tree(ends)
-  const data = grow(0, 0, 9, deg * 270)
-
-  return data
-}
+const DEG = TAU / 360
 
 const canvas = document.querySelector('canvas')
+const { width: w, height: h } = canvas
 const target = canvas.getContext('2d')
 
-const { width: w, height: h } = canvas
-
+// Draw from center bottom
 target.translate(w * 0.5, h - 4.5)
 
-let points = seed()
+const tree = createTree()
+const createPoints = () => tree(0, 0, 9, 270 * DEG)
+
+const points = []
 
 createLoop(() => {
-  if (!points.length) {
-    points = seed()
+  if (points.length === 0) {
+    // Need refill points array
+    Array.prototype.push.apply(points, createPoints())
   }
 
+  // Draw one point per animation frame
   const { x, y, r } = points.shift()
 
   target.beginPath()
@@ -78,9 +30,50 @@ createLoop(() => {
   target.fill()
 }).start()
 
-document.addEventListener('click', () => {
+canvas.addEventListener('click', () => {
   target.clearRect(-w * 0.5, -h, w, h)
 
-  // Start again
+  // Reset points array on next tick
   points.length = 0
 })
+
+// Adapted from Foggy Tree by Chris Coyne,
+// http://www.contextfreeart.org/gallery/view.php?id=4
+function createTree(lottery = [0.05, 0.1], angles = { a: DEG, b: 40 * DEG }) {
+  const data = []
+  const generator = (x1, y1, radius, angle, lotteryIndex = 0) => {
+    if (radius > 1) {
+      const forkMaybe = Math.random() < lottery[lotteryIndex]
+
+      let x2 = Math.cos(angle)
+      let y2 = Math.sin(angle)
+
+      data.push({ x: x1, y: y1, r: radius })
+
+      if (forkMaybe) {
+        const nextLotteryIndex = (lotteryIndex + 1) % lottery.length
+
+        x2 += x1
+        y2 += y1
+
+        generator(x2, y2, radius * 0.9, angle + angles.a, nextLotteryIndex)
+        generator(x2, y2, radius * 0.6, angle + angles.b, lotteryIndex)
+        generator(x2, y2, radius * 0.5, angle - angles.b, nextLotteryIndex)
+      } else {
+        const nextAngle = lotteryIndex === 0 % 2 ? angle - angles.a : angle + angles.a
+
+        x2 *= radius
+        y2 *= radius
+
+        x2 += x1
+        y2 += y1
+
+        generator(x2, y2, radius * 0.98, nextAngle, lotteryIndex)
+      }
+    }
+
+    return data
+  }
+
+  return generator
+}
