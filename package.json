@@ -31,7 +31,10 @@
     "test": "rollup -c node:x -f iife test.js | kpow"
   },
   "eslintConfig": {
-    "extends": "@thewhodidthis"
+    "extends": "@thewhodidthis",
+    "rules": {
+      "func-style": "warn"
+    }
   },
   "dependencies": {},
   "devDependencies": {
