@@ -13,7 +13,7 @@ function loop(now) {
 }
 ```
 
-Ending that loop on demand such as when [debouncing mouse events](https://www.html5rocks.com/en/tutorials/speed/animations/#debouncing-mouse-events) would involve keeping track of each `requestAnimationFrame` (rAF) index to then be calling [`cancelAnimationFrame`](https://developer.mozilla.org/en-US/docs/Web/API/Window/cancelAnimationFrame) with,
+Ending that loop on demand such as when [debouncing mouse events](https://www.html5rocks.com/en/tutorials/speed/animations/#debouncing-mouse-events) would involve keeping track of each `requestAnimationFrame` or _rAF_ index to then be calling `cancelAnimationFrame` with,
 
 ```js
 // Start
