@@ -1,6 +1,6 @@
 {
   "name": "@thewhodidthis/animation",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "description": "Helps setup raf based loops",
   "keywords": [
     "animation",
