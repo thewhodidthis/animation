@@ -57,7 +57,9 @@ const animation = createLoop((now, frameIndex) => {
   console.assert(frameIndexMaybe === undefined)
 })
 
-console.assert(Object.keys(animation).every(k => ['start', 'stop', 'play', 'pause'].includes(k)))
+const methods = ['start', 'stop', 'play', 'pause']
+
+console.assert(Object.keys(animation).every(k => methods.includes(k)))
 
 frameIndexMaybe = animation.start()
 ```
