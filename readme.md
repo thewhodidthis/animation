@@ -39,7 +39,7 @@ This module is essentially a closure around that otherwise free roaming frame re
 
 ```sh
 # Includes ES and CJS versions
-$ npm i @thewhodidthis/animation
+npm i @thewhodidthis/animation
 ```
 
 The default and only export is an anonymous function requiring a callback argument to be invoked before the next repaint, same as using rAF directly. In line with the [revealing module pattern](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#revealingmodulepatternjavascript) expect an anonymous object with `start()` and `stop()` methods attached and aliased play / pause respectively.
