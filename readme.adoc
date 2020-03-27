@@ -14,7 +14,7 @@ function loop(now) {
 }
 ----
 
-Ending that loop on demand such as when https://www.html5rocks.com/en/tutorials/speed/animations/#debouncing-mouse-events[debouncing mouse events] would involve keeping track of each `requestAnimationFrame` or _rAF_ index to then be calling https://developer.mozilla.org/en-US/docs/Web/API/Window/cancelAnimationFrame[`cancelAnimationFrame`] with,
+Ending that loop on demand such as when https://www.html5rocks.com/en/tutorials/speed/animations/#debouncing-mouse-events[debouncing mouse events] would involve keeping track of each `requestAnimationFrame` or *rAF* index to then be calling https://developer.mozilla.org/en-US/docs/Web/API/Window/cancelAnimationFrame[`cancelAnimationFrame`] with,
 
 [source,js]
 ----
@@ -46,7 +46,7 @@ This module is essentially a closure around that otherwise free roaming frame re
 npm i @thewhodidthis/animation
 ----
 
-The default and only export is an anonymous function requiring a callback argument to be invoked before the next repaint, same as using _rAF_ directly. In line with the https://addyosmani.com/resources/essentialjsdesignpatterns/book/#revealingmodulepatternjavascript[revealing module pattern] expect an anonymous object with `start()`  and `stop()` methods attached and aliased link:/index.mjs#L39[play / pause] respectively.
+The default and only export is an anonymous function requiring a callback argument to be invoked before the next repaint, same as using rAF directly. In line with the https://addyosmani.com/resources/essentialjsdesignpatterns/book/#revealingmodulepatternjavascript[revealing module pattern] expect an anonymous object with `start()`  and `stop()` methods attached and aliased link:/index.mjs#L39[play / pause] respectively.
 
 [source,js]
 ----
