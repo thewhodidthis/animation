@@ -8,6 +8,7 @@ const createLoop = (callback) => {
     throw TypeError('Missing callback')
   }
 
+  // Minifies better on account of being used more than once
   const scheduleRequest = fn => window.requestAnimationFrame(fn);
 
   // Track last entry in callback list, idle if `undefined`
@@ -23,7 +24,7 @@ const createLoop = (callback) => {
     }
   };
 
-  // Make sure these don't stack up
+  // Get going, but make sure calls don't stack up
   const play = () => {
     requestId = requestId || scheduleRequest(loop);
 
