@@ -11,14 +11,14 @@ const target = canvas.getContext('2d')
 target.translate(w * 0.5, h - 4.5)
 
 const tree = createTree()
-const createPoints = () => tree(0, 0, 9, 270 * DEG)
+const makePoints = () => tree(0, 0, 9, 270 * DEG)
 
 const points = []
 
 createLoop(() => {
   if (points.length === 0) {
     // Need refill points array
-    Array.prototype.push.apply(points, createPoints())
+    Array.prototype.push.apply(points, makePoints())
   }
 
   // Draw one point per animation frame
