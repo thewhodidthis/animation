@@ -16,52 +16,58 @@ Ending that loop on demand such as when [debouncing mouse events](https://www.ht
 
 ```js
 // Start
-let frameIndex = window.requestAnimationFrame(loop)
+let frame = window.requestAnimationFrame(loop)
 
 function loop() {
   // Update
-  frameIndex = window.requestAnimationFrame(loop)
+  frame = window.requestAnimationFrame(loop)
 }
 
 function stop() {
-  if (frameIndex) {
+  if (frame) {
     // Unassign, make falsy again
-    frameIndex = window.cancelAnimationFrame(frameIndex)
+    frame = window.cancelAnimationFrame(frame)
   }
 
-  console.assert(frameIndex === undefined)
+  console.assert(frame === undefined)
 }
 
 document.addEventListener('click', stop, { once: true })
 ```
 
-This module is essentially a closure around that otherwise free roaming frame reference. It includes no polyfill and minifies to less than half a kilobyte.
+This module is essentially a closure around that otherwise free roaming frame reference. It includes no polyfill and minifies to less than half a kilobyte,
 
 ```sh
 # Includes ES and CJS versions
 npm i @thewhodidthis/animation
 ```
 
-The default and only export is an anonymous function requiring a callback argument to be invoked before the next repaint, same as using rAF directly. In line with the [revealing module pattern](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#revealingmodulepatternjavascript) expect an anonymous object with `start()` and `stop()` methods attached and aliased play / pause respectively.
+The default and only export is an anonymous function requiring a callback argument to be invoked before the next repaint, same as using rAF directly. In line with the [revealing module pattern](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#revealingmodulepatternjavascript) expect an anonymous object with `start()` and `stop()` methods attached and aliased play / pause respectively,
 
 ```js
 import createLoop from '@thewhodidthis/animation'
 
-let frameIndexMaybe
+let frameMaybe
 
-const animation = createLoop((now, frameIndex) => {
-  console.assert(frameIndexMaybe === frameIndex)
+const animationMethods = ['start', 'stop', 'play', 'pause']
+const animation = createLoop((now, frame) => {
+  console.assert(frameMaybe === frame)
 
-  frameIndexMaybe = animation.stop()
+  frameMaybe = animation.stop()
 
-  console.assert(frameIndexMaybe === undefined)
+  console.assert(frameMaybe === undefined)
 })
 
-const methods = ['start', 'stop', 'play', 'pause']
+console.assert(Object.keys(animation).every(k => animationMethods.includes(k)))
 
-console.assert(Object.keys(animation).every(k => methods.includes(k)))
-
-frameIndexMaybe = animation.start()
+frameMaybe = animation.start()
 ```
 
 The callback is passed a [`DOMHighResTimeStamp`](https://developer.mozilla.org/en-US/docs/Web/API/DOMHighResTimeStamp) and the frame reference. Just in case, checks are included to allow for running multiple loops in parallel.
+
+```js
+const startFrame = animation.start()
+const startAgainFrame = animation.start()
+
+console.assert(startFrame === startAgainFrame)
+```
