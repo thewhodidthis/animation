@@ -49,7 +49,7 @@ import createLoop from '@thewhodidthis/animation'
 
 let frameMaybe
 
-const animationMethods = ['start', 'stop', 'play', 'pause']
+const animationKeys = ['start', 'stop', 'play', 'pause']
 const animation = createLoop((now, frame) => {
   console.assert(frameMaybe === frame)
 
@@ -58,7 +58,7 @@ const animation = createLoop((now, frame) => {
   console.assert(frameMaybe === undefined)
 })
 
-console.assert(Object.keys(animation).every(k => animationMethods.includes(k)))
+console.assert(Object.keys(animation).every(k => animationKeys.includes(k)))
 
 frameMaybe = animation.start()
 ```
