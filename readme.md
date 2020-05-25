@@ -41,6 +41,8 @@ This module is essentially a closure around that otherwise free roaming frame re
 
 ## setup
 
+Fetch latest from the _npm_ registry,
+
 ```sh
 # Includes ES and CJS versions
 npm i @thewhodidthis/animation
