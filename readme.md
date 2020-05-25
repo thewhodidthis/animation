@@ -1,3 +1,5 @@
+## about
+
 Scheduling regular updates in the interest of creating [smooth running](https://dev.opera.com/articles/better-performance-with-requestanimationframe) browser animations in JS might conceivably look a bit like,
 
 ```js
@@ -12,7 +14,7 @@ function loop(now) {
 }
 ```
 
-Ending that loop on demand such as when [debouncing mouse events](https://www.html5rocks.com/en/tutorials/speed/animations/#debouncing-mouse-events) would involve keeping track of each `requestAnimationFrame` or __rAF__ index to then be calling [`cancelAnimationFrame`](https://developer.mozilla.org/en-US/docs/Web/API/Window/cancelAnimationFrame) with,
+Ending that loop on demand such as when [debouncing mouse events](https://www.html5rocks.com/en/tutorials/speed/animations/#debouncing-mouse-events) would involve keeping track of each `requestAnimationFrame` or rAF index to then be calling [`cancelAnimationFrame`](https://developer.mozilla.org/en-US/docs/Web/API/Window/cancelAnimationFrame) with,
 
 ```js
 // Start
@@ -35,12 +37,16 @@ function stop() {
 document.addEventListener('click', stop, { once: true })
 ```
 
-This module is essentially a closure around that otherwise free roaming frame reference. It includes no polyfill and minifies to less than half a kilobyte,
+This module is essentially a closure around that otherwise free roaming frame reference. It includes no polyfill and minifies to less than half a kilobyte.
+
+## setup
 
 ```sh
 # Includes ES and CJS versions
 npm i @thewhodidthis/animation
 ```
+
+## usage
 
 The default and only export is an anonymous function requiring a callback argument to be invoked before the next repaint, same as using rAF directly. In line with the [revealing module pattern](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#revealingmodulepatternjavascript) expect an anonymous object with `start()` and `stop()` methods attached and aliased play / pause respectively,
 
