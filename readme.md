@@ -1,6 +1,6 @@
 ## about
 
-Scheduling regular updates in the interest of creating [smooth running](https://dev.opera.com/articles/better-performance-with-requestanimationframe) browser animations in JS might conceivably look a bit like,
+Scheduling regular updates in the interest of creating [smooth running](https://dev.opera.com/articles/better-performance-with-requestanimationframe) browser animations might conceivably look a bit like,
 
 ```js
 // Start
@@ -50,7 +50,7 @@ npm i @thewhodidthis/animation
 
 ## usage
 
-The default and only export is an anonymous function requiring a callback argument to be invoked before the next repaint, same as using rAF directly. In line with the [revealing module pattern](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#revealingmodulepatternjavascript) expect an anonymous object with `start()` and `stop()` methods attached and aliased play / pause respectively,
+The default and only export is an anonymous function expecting a callback argument to be invoked before the next repaint, same as using rAF directly. In line with the [revealing module pattern](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#revealingmodulepatternjavascript) you get an anonymous object with `start()` and `stop()` methods in return, aliased play / pause respectively,
 
 ```js
 import createLoop from '@thewhodidthis/animation'
