@@ -50,7 +50,7 @@ npm i @thewhodidthis/animation
 
 ## usage
 
-The default and only export is an anonymous function expecting a callback argument to be invoked before the next repaint, same as using rAF directly. In line with the [revealing module pattern](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#revealingmodulepatternjavascript) you get an anonymous object with `start()` and `stop()` methods in return. These are aliased _pla_ and _pause_ respectively,
+The default and only export is an anonymous function expecting a callback argument to be invoked before the next repaint, same as using rAF directly. In line with the [revealing module pattern](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#revealingmodulepatternjavascript) you get an anonymous object with `start()` and `stop()` methods in return. These are aliased _play_ and _pause_ respectively,
 
 ```js
 import createLoop from '@thewhodidthis/animation'
