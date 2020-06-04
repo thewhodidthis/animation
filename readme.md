@@ -45,7 +45,7 @@ Fetch latest from the _npm_ registry,
 
 ```sh
 # Includes ESM and CJS versions
-npm i @thewhodidthis/animation
+npm install @thewhodidthis/animation
 ```
 
 ## usage
