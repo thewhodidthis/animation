@@ -1,6 +1,6 @@
 ## about
 
-Scheduling regular updates in the interest of creating [smooth running](https://dev.opera.com/articles/better-performance-with-requestanimationframe) browser animations might conceivably look a bit like,
+Scheduling regular updates in the interest of creating [smooth running](https://dev.opera.com/articles/better-performance-with-requestanimationframe) browser animations might conceivably look a bit like:
 
 ```js
 // Start
@@ -14,7 +14,7 @@ function loop(now) {
 }
 ```
 
-Ending that loop on demand such as when [debouncing mouse events](https://www.html5rocks.com/en/tutorials/speed/animations/#debouncing-mouse-events) would involve keeping track of each `requestAnimationFrame` or rAF index to then be calling [`cancelAnimationFrame`](https://developer.mozilla.org/en-US/docs/Web/API/Window/cancelAnimationFrame) with,
+Ending that loop on demand such as when [debouncing mouse events](https://www.html5rocks.com/en/tutorials/speed/animations/#debouncing-mouse-events) would involve keeping track of each `requestAnimationFrame` or rAF index to then be calling [`cancelAnimationFrame`](https://developer.mozilla.org/en-US/docs/Web/API/Window/cancelAnimationFrame) with. For example,
 
 ```js
 // Start
@@ -41,7 +41,7 @@ This module is essentially a closure around that otherwise free roaming frame re
 
 ## setup
 
-Fetch latest from the _npm_ registry,
+Fetch latest from the _npm_ registry:
 
 ```sh
 # Includes ESM and CJS versions
@@ -50,7 +50,7 @@ npm install @thewhodidthis/animation
 
 ## usage
 
-The default and only export is an anonymous function expecting a callback argument to be invoked before the next repaint, same as using rAF directly. In line with the [revealing module pattern](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#revealingmodulepatternjavascript) you get an anonymous object with `start()` and `stop()` methods in return. These are aliased _play_ and _pause_ respectively,
+The default and only export is an anonymous function expecting a callback argument to be invoked before the next repaint, same as using rAF directly. In line with the [revealing module pattern](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#revealingmodulepatternjavascript) you get an object literal with `start()` and `stop()` methods in return. These are aliased _play_ and _pause_ respectively.
 
 ```js
 import createLoop from '@thewhodidthis/animation'
