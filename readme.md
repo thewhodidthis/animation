@@ -41,10 +41,10 @@ This module is essentially a closure around that otherwise free roaming frame re
 
 ## setup
 
-Fetch latest from the _npm_ registry:
+Fetch the [latest version](https://npm.im/@thewhodidthis/animation) from the _npm_ registry:
 
 ```sh
-# Includes ESM and CJS versions
+# Includes ES and CJS modules
 npm install @thewhodidthis/animation
 ```
 
