@@ -1,6 +1,6 @@
 import 'cutaway'
 import { report, assert } from 'tapeless'
-import createLoop from './index.mjs'
+import createLoop from './main.js'
 
 const { ok, notOk, equal } = assert
 
