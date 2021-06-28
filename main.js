@@ -2,8 +2,8 @@
 // rAF loop toggle
 
 const createLoop = (callback) => {
-  if (callback === undefined || typeof callback !== 'function') {
-    throw TypeError('Missing callback')
+  if (callback === undefined || typeof callback !== "function") {
+    throw TypeError("Missing callback")
   }
 
   // Minifies better on account of being used more than once

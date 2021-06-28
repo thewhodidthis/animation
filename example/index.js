@@ -1,11 +1,11 @@
-import createLoop from '../main.js'
+import createLoop from "../main.js"
 
 const TAU = Math.PI * 2
 const DEG = TAU / 360
 
-const canvas = document.querySelector('canvas')
+const canvas = document.querySelector("canvas")
 const { width: w, height: h } = canvas
-const target = canvas.getContext('2d')
+const target = canvas.getContext("2d")
 
 // Draw from center bottom
 target.translate(w * 0.5, h - 4.5)
@@ -30,7 +30,7 @@ createLoop(() => {
   target.fill()
 }).start()
 
-canvas.addEventListener('click', () => {
+canvas.addEventListener("click", () => {
   target.clearRect(-w * 0.5, -h, w, h)
 
   // Reset points array on next tick

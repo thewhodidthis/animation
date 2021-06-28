@@ -34,7 +34,7 @@ function stop() {
   console.assert(frame === undefined)
 }
 
-document.addEventListener('click', stop, { once: true })
+document.addEventListener("click", stop, { once: true })
 ```
 
 This module is essentially a closure around that otherwise free roaming frame reference. It includes no polyfill and minifies to less than half a kilobyte.
@@ -53,11 +53,11 @@ npm install @thewhodidthis/animation
 The default and only export is an anonymous function expecting a callback argument to be invoked before the next repaint, same as using rAF directly. In line with the [revealing module pattern](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#revealingmodulepatternjavascript) you get an object literal with `start()` and `stop()` methods in return. These are aliased _play_ and _pause_ respectively.
 
 ```js
-import createLoop from '@thewhodidthis/animation'
+import createLoop from "@thewhodidthis/animation"
 
 let frameMaybe
 
-const animationKeys = ['start', 'stop', 'play', 'pause']
+const animationKeys = ["start", "stop", "play", "pause"]
 const animation = createLoop((now, frame) => {
   console.assert(frameMaybe === frame)
 
