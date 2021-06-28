@@ -1,4 +1,4 @@
-import createLoop from '../index.mjs'
+import createLoop from '../main.js'
 
 const TAU = Math.PI * 2
 const DEG = TAU / 360

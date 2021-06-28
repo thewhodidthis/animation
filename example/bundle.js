@@ -1,123 +1,79 @@
-(function () {
-  'use strict';
-
-  // # Animation
-  // rAF loop toggle
-
-  const createLoop = (callback) => {
-    if (callback === undefined || typeof callback !== 'function') {
-      throw TypeError('Missing callback')
+(() => {
+  // ../main.js
+  var createLoop = (callback) => {
+    if (callback === void 0 || typeof callback !== "function") {
+      throw TypeError("Missing callback");
     }
-
-    // Minifies better on account of being used more than once
-    const scheduleRequest = fn => window.requestAnimationFrame(fn);
-
-    // Track last entry in callback list, idle if `undefined`
+    const scheduleRequest = (fn) => window.requestAnimationFrame(fn);
     let requestId;
-
-    // Schedule work on each frame
     const loop = (elapsed) => {
       callback(elapsed, requestId);
-
-      // Skip if idle
       if (requestId) {
         requestId = scheduleRequest(loop);
       }
     };
-
-    // Get going, but make sure calls don't stack up
     const play = () => {
       requestId = requestId || scheduleRequest(loop);
-
-      return requestId
+      return requestId;
     };
-
-    // Turn off if running
     const stop = () => {
       requestId = requestId && window.cancelAnimationFrame(requestId);
-
-      return requestId
+      return requestId;
     };
-
-    return { start: play, stop, play, pause: stop }
+    return { start: play, stop, play, pause: stop };
   };
+  var main_default = createLoop;
 
-  const TAU = Math.PI * 2;
-  const DEG = TAU / 360;
-
-  const canvas = document.querySelector('canvas');
-  const { width: w, height: h } = canvas;
-  const target = canvas.getContext('2d');
-
-  // Draw from center bottom
+  // index.js
+  var TAU = Math.PI * 2;
+  var DEG = TAU / 360;
+  var canvas = document.querySelector("canvas");
+  var { width: w, height: h } = canvas;
+  var target = canvas.getContext("2d");
   target.translate(w * 0.5, h - 4.5);
-
-  const tree = createTree();
-  const makePoints = () => tree(0, 0, 9, 270 * DEG);
-
-  const points = [];
-
-  createLoop(() => {
+  var tree = createTree();
+  var makePoints = () => tree(0, 0, 9, 270 * DEG);
+  var points = [];
+  main_default(() => {
     if (points.length === 0) {
-      // Need refill points array
       Array.prototype.push.apply(points, makePoints());
     }
-
-    // Draw one point per animation frame
     const { x, y, r } = points.shift();
-
     target.beginPath();
     target.arc(x, y, r * 0.5, 0, TAU);
     target.closePath();
     target.fill();
   }).start();
-
-  canvas.addEventListener('click', () => {
+  canvas.addEventListener("click", () => {
     target.clearRect(-w * 0.5, -h, w, h);
-
-    // Reset points array on next tick
     points.length = 0;
   });
-
-  // Adapted from Foggy Tree by Chris Coyne,
-  // http://www.contextfreeart.org/gallery/view.php?id=4
   function createTree(lottery = [0.05, 0.1], angles = { a: DEG, b: 40 * DEG }) {
     const data = [];
     const generator = (x1, y1, radius, angle, lotteryIndex = 0) => {
       if (radius > 1) {
         const forkMaybe = Math.random() < lottery[lotteryIndex];
-
         let x2 = Math.cos(angle);
         let y2 = Math.sin(angle);
-
         data.push({ x: x1, y: y1, r: radius });
-
         if (forkMaybe) {
           const nextLotteryIndex = (lotteryIndex + 1) % lottery.length;
-
           x2 += x1;
           y2 += y1;
-
           generator(x2, y2, radius * 0.9, angle + angles.a, nextLotteryIndex);
           generator(x2, y2, radius * 0.6, angle + angles.b, lotteryIndex);
           generator(x2, y2, radius * 0.5, angle - angles.b, nextLotteryIndex);
         } else {
           const nextAngle = lotteryIndex === 0 % 2 ? angle - angles.a : angle + angles.a;
-
           x2 *= radius;
           y2 *= radius;
-
           x2 += x1;
           y2 += y1;
-
           generator(x2, y2, radius * 0.98, nextAngle, lotteryIndex);
         }
       }
-
-      return data
+      return data;
     };
-
-    return generator
+    return generator;
   }
-
-}());
+})();
