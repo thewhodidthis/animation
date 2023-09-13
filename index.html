@@ -26,7 +26,7 @@
         text-align: center;
       }
       canvas {
-        background: white center/cover no-repeat;
+        background: black center/cover no-repeat;
         display: block;
       }
       img {
@@ -44,6 +44,15 @@
       figure {
         font-size: small;
         margin: auto;
+      }
+      @media (prefers-color-scheme: dark) {
+        html {
+          background: #1e1e1e;
+          color: #efefef;
+        }
+        a {
+          color: inherit;
+        }
       }
     </style>
   </head>
