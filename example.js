@@ -5,15 +5,17 @@ const DEG = TAU / 360
 
 const canvas = document.querySelector("canvas")
 const { width: w, height: h } = canvas
-const target = canvas.getContext("2d")
+const target = canvas.getContext("2d", { alpha: false })
 
-// Draw from center bottom.
-target.translate(w * 0.5, h - 5)
+target.fillStyle = "white"
 
 const tree = createTree()
 const makePoints = () => tree(0, 0, 9, 270 * DEG)
 
 const points = []
+
+// Draw from center bottom.
+target.translate(w * 0.5, h - 5)
 
 animation(() => {
   if (points.length === 0) {
@@ -24,10 +26,7 @@ animation(() => {
   // Draw one point per animation frame.
   const { x, y, r } = points.shift()
 
-  target.beginPath()
-  target.arc(x, y, r * 0.5, 0, TAU)
-  target.closePath()
-  target.fill()
+  target.fillRect(Math.round(x), Math.round(y), Math.floor(r), Math.floor(r))
 }).start()
 
 canvas.addEventListener("click", () => {
