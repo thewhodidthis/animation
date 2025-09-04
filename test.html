@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>animation.js</title>
+    <script type="module">
+      import "https://thewhodidthis.github.io/cutaway/main.js"
+      import { assert, report } from "https://thewhodidthis.github.io/tapeless/main.js"
+      import createLoop from "./main.js"
+
+      const { ok, notOk, equal } = assert
+
+      try {
+        createLoop()
+      } catch (e) {
+        ok
+          .describe("thrown")
+          .test(e)
+          .describe("TypeError", "will throw sans callback")
+          .test(e instanceof TypeError)
+      }
+
+      const animation = createLoop(Function)
+      const methods = ["start", "stop", "play", "pause"]
+
+      ok
+        .describe("methods in place")
+        .test(Object.keys(animation).every(k => methods.includes(k)))
+
+      const { play, stop } = animation
+
+      try {
+        const f = play()
+
+        ok
+          .describe("play", "does not throw")
+          .test(f)
+      } catch (e) {
+        ok
+          .describe("unexpected")
+          .test(e)
+      }
+
+      const id = play()
+
+      equal
+        .describe("frame id hasn't changed")
+        .test(play(), id)
+        .describe("frame id hasn't changed")
+        .test(play(), id)
+        .describe("frame id hasn't changed", "will avoid stacking")
+        .test(play(), id)
+
+      notOk
+        .describe("stop")
+        .test(stop())
+
+      report()
+    </script>
+  </head>
+  <body></body>
+</html>

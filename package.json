@@ -1,0 +1,18 @@
+{
+  "name": "@thewhodidthis/animation",
+  "version": "4.0.0",
+  "private": true,
+  "description": "Helps set up rAF loops",
+  "homepage": "https://github.com/thewhodidthis/animation#readme",
+  "bugs": "https://github.com/thewhodidthis/animation/issues",
+  "repository": "github:thewhodidthis/animation",
+  "license": "ISC",
+  "author": "Thepersonwhodidthis <me@thewhodidthis.com> (http://thewhodidthis.com)",
+  "engines": {
+    "node": ">=18.14.0",
+    "npm": ">=9.2.1"
+  },
+  "browser": "./main.js",
+  "type": "module",
+  "exports": "./main.js"
+}
